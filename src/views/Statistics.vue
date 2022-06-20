@@ -1,13 +1,17 @@
 <template>
-  <div>statistics.vue</div>
+  <div>
+    statistics.vue
+    <Nav></Nav>
+  </div>
 </template>
 
 <script lang="ts">
+// 已经注册全局组件
+// import Nav from "@/components/Nav.vue";
 export default {
-  name: 'Statistics'
+  name: "Statistics",
+  // components: { Nav },
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

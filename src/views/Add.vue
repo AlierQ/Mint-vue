@@ -4,10 +4,8 @@
 
 <script lang="ts">
 export default {
-  name: 'ADD'
+  name: "ADD",
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

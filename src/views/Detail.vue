@@ -1,13 +1,16 @@
 <template>
-  <div>detail.vue</div>
+  <div>
+    detail.vue
+    <Nav></Nav>
+  </div>
 </template>
 
 <script lang="ts">
+// import Nav from "@/components/Nav.vue";
 export default {
-  name: 'Detail'
+  name: "Detail",
+  // components: { Nav },
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
