@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div>
+    <div class="page">
+      <Icon name="404"></Icon>
       <!-- <a href="#/">返回首页</a> -->
-      <router-link to="/">点击返回首页</router-link>
+      <router-link to="/" class="toDetail"><em>点击此处返回首页</em></router-link>
     </div>
-    <div>请求资源不存在，请检查网址是否正确！</div>
   </div>
 </template>
 
@@ -14,4 +14,22 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  >.icon{
+    width: 240px;
+    height: 240px;
+    fill: #42b983;
+  }
+  >.toDetail{
+    margin-top: 10px;
+    color: #42b983;
+  }
+}
+</style>

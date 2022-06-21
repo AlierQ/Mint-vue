@@ -2,17 +2,17 @@
 <template>
   <nav>
     <router-link active-class="active" to="/detail" class="item">
-      <Icon name="detail-noselected" />
+      <Icon name="detail" />
       <span class="title">明细</span>
     </router-link>
-    <router-link active-class="active" to="/add" class="item">
+    <router-link active-class="" to="/add" class="item">
       <div class="add-bg">
         <Icon name="add" />
       </div>
       <span class="title">记一笔</span>
     </router-link>
     <router-link active-class="active" to="/statistics" class="item">
-      <Icon name="statistics-noselected" />
+      <Icon name="statistics" />
       <span class="title">统计</span>
     </router-link>
   </nav>
@@ -25,6 +25,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.active{
+  fill: #42b983;
+  >.title{
+    color: #42b983 !important;
+  }
+}
 nav {
   display: flex;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -37,7 +43,8 @@ nav {
     align-items: center;
     text-decoration: none;
     > .title {
-      font-size: 14px;
+      margin-top: 2px;
+      font-size: 12px;
       color:#3F3E3F;
     }
     > .icon {
