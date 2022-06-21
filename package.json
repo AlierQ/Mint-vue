@@ -37,6 +37,7 @@
     "sass": "1.36.0",
     "sass-loader": "8.0.2",
     "svg-sprite-loader": "6.0.9",
+    "svgo-loader": "^2.2.1",
     "typescript": "4.1.6",
     "vue-template-compiler": "2.6.14"
   },
