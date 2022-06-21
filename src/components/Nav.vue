@@ -10,7 +10,8 @@
       <svg>
         <use xlink:href="#add" />
       </svg>
-      记一笔</router-link>&nbsp;
+      记一笔</router-link
+    >&nbsp;
     <router-link active-class="active" to="/statistics">统计</router-link>
   </div>
 </template>
@@ -18,6 +19,16 @@
 <script lang="ts">
 import "@/assets/icons/deatil-noselected.svg";
 import "@/assets/icons/add.svg";
+
+// import引入一个目录所有文件
+let importAll = (requireContext: __WebpackModuleApi.RequireContext) =>
+  requireContext.keys().forEach(requireContext);
+try {
+  importAll(require.context("../assets/icons", true, /\.svg/));
+} catch (error) {
+  console.log(error);
+}
+
 export default {
   name: "Nav",
 };
