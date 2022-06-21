@@ -1,3 +1,8 @@
+/**
+ * @Description: 布局组件
+ * @author AlierQ
+ * @date 20/6/2022
+*/
 <template>
   <div class="nav-wrapper">
     <div class="content">
@@ -20,14 +25,14 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  border: 1px solid blue;
+  //border: 1px solid blue;
   /* 超出内容滚动 */
   overflow: auto;
   /* 控制宽度占的份数,这里主轴是纵向的，所以变成了控制高度占的份数 */
   flex-grow: 1;
 }
 .nav-wrapper {
-  border: 1px solid red;
+  //border: 1px solid red;
   width: 100vw;
   height: 100vh;
   display: flex;

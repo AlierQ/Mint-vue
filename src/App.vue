@@ -19,8 +19,8 @@
 *::before {
   box-sizing: border-box;
 }
-.active {
-  color: red;
+body{
+  line-height: 1.5;
 }
 </style>
 <script>
