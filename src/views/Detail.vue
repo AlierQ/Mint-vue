@@ -135,7 +135,7 @@ export default {
         height: 48px;
         width: 390px;
         margin-top: 10px;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.2);
         border-radius: 10px;
         color: #333333;
         text-decoration: none;

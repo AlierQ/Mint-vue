@@ -1,7 +1,11 @@
 <template>
   <div>
     <Layout>
-      <template slot="content">label.vue</template>
+      <template slot="top"></template>
+      <template slot="content">statistics.vue</template>
+      <template slot="bottom">
+        <Nav></Nav>
+      </template>
     </Layout>
   </div>
 </template>
@@ -11,7 +15,6 @@
 // import Nav from "@/components/Nav.vue";
 export default {
   name: "Statistics",
-  // components: { Nav },
 };
 </script>
 
