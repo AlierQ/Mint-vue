@@ -24,7 +24,25 @@
           </div>
         </div>
       </template>
-      <template slot="content"> </template>
+      <template slot="content">
+        <div class="record">
+          <ul>
+            <li>
+              <a href="">
+                <div class="icon-container">
+                  <Icon name="detail"></Icon>
+                </div>
+                <div class="remark">
+                  买了一点东西
+                </div>
+                <div class="money-number">
+                  -120
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </template>
       <template slot="bottom">
         <Nav></Nav>
       </template>
@@ -100,6 +118,47 @@ export default {
         color: #333333;
         span {
           font-size: 24px;
+        }
+      }
+    }
+  }
+}
+.record {
+  ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    li{
+      a{
+        display: flex;
+        align-items: center;
+        height: 48px;
+        width: 390px;
+        margin-top: 10px;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 10px;
+        color: #333333;
+        text-decoration: none;
+        .icon-container{
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #79c79f;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin:0 10px;
+          .icon{
+            width: 22px;
+            height: 22px;
+          }
+        }
+        .remark{
+          flex-grow: 1;
+        }
+        .money-number{
+          margin-right: 10px;
+          font-size: 18px;
         }
       }
     }

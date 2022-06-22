@@ -25,9 +25,9 @@ export default {
 
 <style lang="scss" scoped>
 .active {
-  fill: #42b983;
+  fill: #79c79f;
   > .title {
-    color: #42b983 !important;
+    color: #79c79f !important;
   }
 }
 nav {
@@ -55,7 +55,7 @@ nav {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #42b983;
+      background: #79c79f;
       display: flex;
       justify-content: center;
       align-items: center;
