@@ -1,4 +1,3 @@
-/** * @Description: 底部导航栏组件 * @author AlierQ * @date 20/6/2022 */
 <template>
   <nav>
     <router-link active-class="active" to="/detail" class="item">
@@ -25,9 +24,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.active{
+.active {
   fill: #42b983;
-  >.title{
+  > .title {
     color: #42b983 !important;
   }
 }
@@ -45,14 +44,14 @@ nav {
     > .title {
       margin-top: 2px;
       font-size: 12px;
-      color:#3F3E3F;
+      color: #3f3e3f;
     }
     > .icon {
       height: 32px;
       width: 32px;
       //fill:#42b983;
     }
-    > .add-bg{
+    > .add-bg {
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -60,11 +59,11 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin:0 40px;
-      .icon{
+      margin: 0 40px;
+      .icon {
         width: 20px;
         height: 20px;
-        fill:#333;
+        fill: #333;
       }
     }
   }
