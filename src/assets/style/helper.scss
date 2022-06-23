@@ -16,3 +16,12 @@ $font-kaiti: Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC",
 // colors
 $color-basic:#79c79f;
 $color-font:#333333;
+
+// placeholder
+%clearFix{
+  &::after{
+    content: '';
+    clear: both;
+    display: block;
+  }
+}// 使用方法：extend %clearfix;
