@@ -1,11 +1,11 @@
 /**
- * @Description: 
+ * @Description: 输入面板
  * @author AlierQ
  * @date 23/6/2022 
 */
 <template>
   <div class="input-pad">
-    <div class="output">0.00</div>
+    <div class="output">1.00</div>
     <div class="remark">
       <Icon name="remake"></Icon>
       <label>
@@ -25,19 +25,18 @@
           <td>4</td>
           <td>5</td>
           <td>6</td>
-          <td>+</td>
+          <td><Icon name="clear"></Icon></td>
         </tr>
         <tr>
           <td>1</td>
           <td>2</td>
           <td>3</td>
-          <td>-</td>
+          <td class="characters done" rowspan="2">完成</td>
         </tr>
         <tr>
+          <td colspan="2">0</td>
+          <!-- <td>0</td> -->
           <td>.</td>
-          <td>0</td>
-          <td><Icon name="clear"></Icon></td>
-          <td class="characters done" >完成</td>
         </tr>
       </table>
     </div>
@@ -53,7 +52,6 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 .input-pad {
-  //border: 1px solid red;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   height: 360px;
   display: flex;
@@ -67,6 +65,8 @@ export default {
     height: 60px;
     line-height: 60px;
     align-self: flex-end;
+    // 首选字体Consolas,没有就指定任意的等宽字体monospace
+    font-family: Consolas,monospace;
   }
   .remark {
     background: #e6e7e8;

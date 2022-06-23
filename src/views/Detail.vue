@@ -137,7 +137,7 @@ export default {
       a{
         display: flex;
         align-items: center;
-        height: 48px;width: 390px;
+        height: 48px;width: 96vw;
         margin-top: 10px;
         border: 1px solid rgba(0,0,0,0.2);
         border-radius: 10px;

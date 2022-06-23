@@ -14,8 +14,10 @@
   /* 让字体显示更加清晰 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 全局属性 */
   line-height: 1.5;
   font-family: $font-heiti;
+  font-size: 16px;
 }
 </style>
 <script>
