@@ -1,7 +1,7 @@
 /**
- * @Description:
- * @author AlierQ
- * @date 20/6/2022
+* @Description:
+* @author AlierQ
+* @date 20/6/2022
 */
 <template>
   <div>
@@ -32,27 +32,53 @@
   </div>
 </template>
 
-<script>
-import InputPad from "@/components/InputPad.vue";
-export default {
-  name: "ADD",
-  components: { InputPad },
-  data() {
-    return {
-      type: "-", // '-' 表示支出 '+' 表示收入
-    };
-  },
-  methods: {
-    selectType(type) {
-      if (type === "-" || type === "+") this.type = type;
-      else throw new Error("type is unknown");
-    },
-  },
-};
+<script lang="ts">
+//import InputPad from '@/components/InputPad.vue';
+// js编写组件
+// export default {
+//   name: 'ADD',
+//   components: {InputPad},
+//   data() {
+//     return {
+//       type: '-', // '-' 表示支出 '+' 表示收入
+//     }
+//   },
+//   methods: {
+//     selectType(type) {
+//       if (type === '-' || type === '+') this.type = type
+//       else throw new Error('type is unknown')
+//     },
+//   },
+// }
+
+// ts编写组件
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+import InputPad from '@/components/InputPad.vue';
+// 装饰器
+@Component({
+  // ts引入组件
+  components: {
+    InputPad
+  }
+})
+export default class Types extends Vue {
+  // @Prop告诉Vue test不是data而是prop
+  // (Number)告诉Vue test是个number  ”作用在运行时“
+  // number | undefined TS编译时指定的类型  ”作用在编译时“
+  @Prop(Number) test: number | undefined;
+  type = '-'; // '-' 表示支出 '+' 表示收入
+  selectType(type: string) {
+    if (type === '-' || type === '+') this.type = type;
+    else throw new Error('type is unknown');
+    console.log(this.test);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+
 .top {
   height: 80px;
   background: $color-basic;
@@ -60,11 +86,13 @@ export default {
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 10px;
+
   .in,
   .out {
     font-size: 22px;
     margin: 0 10px;
     position: relative;
+
     &.selected {
       &::after {
         content: "";
@@ -77,6 +105,7 @@ export default {
       }
     }
   }
+
   .close {
     position: absolute;
     right: 20px;
