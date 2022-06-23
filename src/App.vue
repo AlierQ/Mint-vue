@@ -18,6 +18,8 @@
   line-height: 1.5;
   font-family: $font-heiti;
   font-size: 16px;
+  /* 解决ios手机浏览器点击闪现黑灰色背景 */
+  -webkit-tap-highlight-color: transparent;
 }
 </style>
 <script>
