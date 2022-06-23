@@ -33,25 +33,6 @@
 </template>
 
 <script lang="ts">
-//import InputPad from '@/components/InputPad.vue';
-// js编写组件
-// export default {
-//   name: 'ADD',
-//   components: {InputPad},
-//   data() {
-//     return {
-//       type: '-', // '-' 表示支出 '+' 表示收入
-//     }
-//   },
-//   methods: {
-//     selectType(type) {
-//       if (type === '-' || type === '+') this.type = type
-//       else throw new Error('type is unknown')
-//     },
-//   },
-// }
-
-// ts编写组件
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
@@ -62,10 +43,7 @@ import InputPad from '@/components/InputPad.vue';
     InputPad
   }
 })
-export default class Types extends Vue {
-  // @Prop告诉Vue test不是data而是prop
-  // (Number)告诉Vue test是个number  ”作用在运行时“
-  // number | undefined TS编译时指定的类型  ”作用在编译时“
+export default class Add extends Vue {
   @Prop(Number) test: number | undefined;
   type = '-'; // '-' 表示支出 '+' 表示收入
   selectType(type: string) {
