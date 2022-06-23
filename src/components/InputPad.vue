@@ -6,13 +6,7 @@
 <template>
   <div class="input-pad">
     <div class="output">{{ output }}</div>
-    <div class="remark">
-      <Icon name="remake"></Icon>
-      <label>
-        备注:&nbsp;
-      </label>
-      <input type="text" placeholder="点击填写备注"/>
-    </div>
+    <Remake></Remake>
     <div class="pad">
       <table>
         <tr>
@@ -48,8 +42,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import Remake from '@/components/Remake.vue';
 
-@Component
+@Component({
+  components: {
+    Remake
+  }
+})
 export default class InputPad extends Vue {
   output = '0';
 
@@ -125,39 +124,6 @@ export default class InputPad extends Vue {
     align-self: flex-end;
     // 首选字体Consolas,没有就指定任意的等宽字体monospace
     font-family: Consolas, monospace;
-  }
-
-  .remark {
-    background: #e6e7e8;
-    border-radius: 5px;
-    height: 40px;
-    width: 96vw;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-
-    > .icon {
-      width: 22px;
-      height: 22px;
-      margin-left: 10px;
-      fill: #2fb86b;
-    }
-
-    > label {
-      color: $color-font;
-      font-size: 18px;
-      margin-left: 2px;
-    }
-
-    > input {
-      outline: 0;
-      flex-grow: 1;
-      margin-right: 10px;
-      height: 30px;
-      border: none;
-      background: #e6e7e8;
-      font-size: 16px;
-    }
   }
 
   .pad {
