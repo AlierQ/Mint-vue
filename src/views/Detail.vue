@@ -152,6 +152,7 @@ export default {
           .icon{
             width: 22px;
             height: 22px;
+            fill: #545353;
           }
         }
         .remark{

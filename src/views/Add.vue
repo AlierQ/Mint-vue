@@ -21,10 +21,12 @@
             :class="type === '+' && 'selected'"
             @click="selectType('+')">收入
           </div>
-          <div class="close">取消</div>
+          <router-link to="/" class="close">取消</router-link>
         </div>
       </template>
-      <template slot="content">这里是内容</template>
+      <template slot="content">
+        <OutIconList ></OutIconList>
+      </template>
       <template slot="bottom">
         <InputPad></InputPad>
       </template>
@@ -36,11 +38,13 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
+import OutIconList from '@/components/OutIconList.vue';
 // 装饰器
 @Component({
   // ts引入组件
   components: {
-    InputPad
+    InputPad,
+    OutIconList
   }
 })
 export default class Add extends Vue {
@@ -81,7 +85,6 @@ export default class Add extends Vue {
       }
     }
   }
-
   .close {
     position: absolute;
     right: 20px;

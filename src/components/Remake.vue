@@ -9,14 +9,18 @@
     <label>
       备注:&nbsp;
     </label>
-    <input type="text" placeholder="点击填写备注"/>
+    <input v-model="content" type="text" placeholder="点击填写备注"/>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Remake'
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Remake extends Vue {
+  content = '';
+}
 </script>
 
 <style lang="scss" scoped>
