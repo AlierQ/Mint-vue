@@ -1,3 +1,8 @@
+/**
+ * @Description: 
+ * @author AlierQ
+ * @date 20/6/2022 
+*/
 <template>
   <div>
     <Layout>
@@ -57,8 +62,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .top {
-  background: #79c79f;
+  background: $color-basic;
   height: 170px;
   display: flex;
   flex-direction: column;
@@ -83,10 +89,10 @@ export default {
       .in {
         margin-right: 80px;
         .in-title {
-          color: #333333;
+          color: $color-font;
         }
         .money {
-          color: #333333;
+          color: $color-font;
           span {
             font-size: 22px;
           }
@@ -94,10 +100,10 @@ export default {
       }
       .out {
         .out-title {
-          color: #333333;
+          color: $color-font;
         }
         .money {
-          color: #333333;
+          color: $color-font;
           span {
             font-size: 22px;
           }
@@ -105,8 +111,7 @@ export default {
       }
     }
     .line {
-      width: 0;
-      height: 50px;
+      width: 0;height: 50px;
       border: 1px solid #333333;
       margin: 0 30px;
     }
@@ -115,7 +120,7 @@ export default {
         color: #595959;
       }
       .mouth {
-        color: #333333;
+        color: $color-font;
         span {
           font-size: 24px;
         }
@@ -132,18 +137,14 @@ export default {
       a{
         display: flex;
         align-items: center;
-        height: 48px;
-        width: 390px;
+        height: 48px;width: 390px;
         margin-top: 10px;
         border: 1px solid rgba(0,0,0,0.2);
         border-radius: 10px;
-        color: #333333;
-        text-decoration: none;
         .icon-container{
-          width: 36px;
-          height: 36px;
+          width: 36px;height: 36px;
           border-radius: 50%;
-          background: #79c79f;
+          background: $color-basic;
           display: flex;
           justify-content: center;
           align-items: center;

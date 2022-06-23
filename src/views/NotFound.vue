@@ -15,6 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .page{
   width: 100vw;
   height: 100vh;
@@ -25,11 +26,12 @@ export default {
   >.icon{
     width: 240px;
     height: 240px;
-    fill: #42b983;
+    fill: $color-basic;
   }
   >.toDetail{
     margin-top: 10px;
-    color: #42b983;
+    color: $color-basic;
+    text-decoration:underline $color-basic;
   }
 }
 </style>

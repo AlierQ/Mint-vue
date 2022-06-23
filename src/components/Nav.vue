@@ -24,10 +24,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .active {
-  fill: #79c79f;
+  fill: $color-basic;
   > .title {
-    color: #79c79f !important;
+    color: $color-basic !important;
   }
 }
 nav {
@@ -55,7 +56,7 @@ nav {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #79c79f;
+      background: $color-basic;
       display: flex;
       justify-content: center;
       align-items: center;

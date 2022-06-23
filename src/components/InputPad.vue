@@ -1,3 +1,8 @@
+/**
+ * @Description: 
+ * @author AlierQ
+ * @date 23/6/2022 
+*/
 <template>
   <div class="input-pad">
     <div class="output">0.00</div>
@@ -46,6 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 .input-pad {
   //border: 1px solid red;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -55,7 +61,7 @@ export default {
   align-items: center;
   .output {
     text-align: right;
-    color: #333333;
+    color: $color-font;
     font-size: 32px;
     padding-right: 10px;
     height: 60px;
@@ -74,9 +80,10 @@ export default {
       width: 22px;
       height: 22px;
       margin-left: 10px;
+      fill: #2fb86b;
     }
     >label {
-      color: #333333;
+      color: $color-font;
       font-size: 18px;
       margin-left: 2px;
     }
@@ -91,7 +98,6 @@ export default {
     }
   }
   .pad{
-    //border: 1px solid red;
     width: 100vw;
     flex-grow: 1;
     table{
@@ -104,7 +110,7 @@ export default {
       tr{
         td{
           border: 1px solid #E8E8E8;
-          color: #333333;
+          color: $color-font;
           font-size: 22px;
           text-align: center;
         }
@@ -112,7 +118,7 @@ export default {
           font-size: 18px;
         }
         .done{
-          background: #79c79f;
+          background: $color-basic;
           border:0;
         }
       }
