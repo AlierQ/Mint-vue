@@ -44,12 +44,10 @@ import InputPad from '@/components/InputPad.vue';
   }
 })
 export default class Add extends Vue {
-  @Prop(Number) test: number | undefined;
   type = '-'; // '-' 表示支出 '+' 表示收入
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
     else throw new Error('type is unknown');
-    console.log(this.test);
   }
 }
 </script>
