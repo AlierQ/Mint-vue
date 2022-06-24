@@ -5,6 +5,7 @@
 */
 <template>
   <div>
+    {{ recordList }}
     <Layout>
       <!-- 调用子组件并且将内容插到子元素内部的插槽中 -->
       <!-- 通过slot属性指定某一个插槽 -->
@@ -25,13 +26,16 @@
         </div>
       </template>
       <template slot="content">
-        <LabelList @get:checked="getCheckedTag" :tagsData="type === '-'?outTagsData:inTagsData"
+        <LabelList @get:checked="getCheckedTag"
+                   :tagsData="type === '-'?outTagsData:inTagsData"
                    :type="type"></LabelList>
       </template>
       <template slot="bottom">
-        <InputPad @submit="saveRecord" @get:inputPadData="getInputPadData"></InputPad>
+        <InputPad @submit="saveRecord"
+                  @get:inputPadData="getInputPadData"></InputPad>
       </template>
     </Layout>
+
   </div>
 </template>
 
@@ -43,10 +47,12 @@ import LabelList from '@/components/LabelList.vue';
 
 // 声明对象
 type Record = {
+  // 可以写数据类型也可以写类(构造函数)
   type: string;
   tag: string;
   remake: string;
   amount: number;
+  createTime?: Date;  // ? 表示可以不存在
 }
 
 // 装饰器
@@ -62,7 +68,7 @@ export default class Add extends Vue {
   inTagsData = [{0: 'wage', 1: '工资'}];
   type = '-'; // '-' 表示支出 '+' 表示收入
   record: Record = {type: this.type, tag: '', remake: '', amount: 0};
-  recordList: Record[] = [];
+  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
@@ -76,7 +82,6 @@ export default class Add extends Vue {
 
   // 获取选择标签的回调
   getCheckedTag(checked: string) {
-    console.log(checked);
     this.record.tag = checked;
   }
 
@@ -84,17 +89,15 @@ export default class Add extends Vue {
   getInputPadData(output: string, remake: string) {
     this.record.amount = Number(output);
     this.record.remake = remake;
-    console.log(output, remake);
   }
 
   // 保存一条记录到所有记录中
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone = JSON.parse(JSON.stringify(this.record))
+    const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+    recordClone.createTime = new Date();
     this.recordList.push(recordClone);
-    this.$emit('init')
-    console.log(this.recordList);
   }
 
   // 监听所有记录,一旦有变动就存入localstorage
