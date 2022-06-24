@@ -6,7 +6,7 @@
 <template>
   <div class="input-pad">
     <div class="output">{{ output }}</div>
-    <Remake></Remake>
+    <Remake @get:remakeData="getRemakeData"></Remake>
     <div class="pad">
       <table>
         <tr>
@@ -51,6 +51,7 @@ import Remake from '@/components/Remake.vue';
 })
 export default class InputPad extends Vue {
   output = '0';
+  remakeData = '';
 
   input(event: MouseEvent) {
     // event.target as HTMLDivElement 强制指定类型
@@ -99,7 +100,13 @@ export default class InputPad extends Vue {
   }
 
   done() {
+    if(this.output!=='0'&&this.output!=='0.'){
+      this.$emit('get:inputPadData',this.output,this.remakeData)
+    }
+  }
 
+  getRemakeData(remakeData: string) {
+    this.remakeData = remakeData;
   }
 }
 </script>

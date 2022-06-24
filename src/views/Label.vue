@@ -19,7 +19,7 @@
         </div>
       </template>
       <template slot="content">
-        <LabelEditList @update:tagsData="update" :tagsData.sync="type==='-'?outTagsData:inTagsData"></LabelEditList>
+        <LabelEditList @update:tagsData="update" :tagsData="type==='-'?outTagsData:inTagsData"></LabelEditList>
       </template>
       <template slot="bottom">
         <div class="bottom" @click="create">

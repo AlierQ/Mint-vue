@@ -42,16 +42,14 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
 @Component
-export default class OutIconList extends Vue {
+export default class LabelList extends Vue {
   checked = '';
   @Prop(Array) tagsData: any[] | undefined;
-  @Prop(String) type: string | undefined;
+  @Prop(String) readonly type: string | undefined;
 
   select(name: string) {
     this.checked = name;
-  }
-
-  created() {
+    this.$emit('get:checked',this.checked)
   }
 }
 </script>

@@ -25,10 +25,11 @@
         </div>
       </template>
       <template slot="content">
-        <OutIconList :tagsData="type === '-'?outTagsData:inTagsData" :type="type"></OutIconList>
+        <LabelList @get:checked="getCheckedTag" :tagsData="type === '-'?outTagsData:inTagsData"
+                   :type="type"></LabelList>
       </template>
       <template slot="bottom">
-        <InputPad></InputPad>
+        <InputPad @get:inputPadData="getInputPadData"></InputPad>
       </template>
     </Layout>
   </div>
@@ -36,24 +37,52 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
-import OutIconList from '@/components/LabelList.vue';
+import LabelList from '@/components/LabelList.vue';
+
+// 声明对象
+type Record = {
+  type: string;
+  tag: string;
+  remake: string;
+  amount: number;
+}
+
 // 装饰器
 @Component({
   // ts引入组件
   components: {
+    LabelList,
     InputPad,
-    OutIconList
   }
 })
 export default class Add extends Vue {
-  outTagsData = [{0:'catering',1:'餐饮'},{0:'shopping',1:'购物'}]
-  inTagsData = [{0:'wage',1:'工资'}]
+  outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
+  inTagsData = [{0: 'wage', 1: '工资'}];
   type = '-'; // '-' 表示支出 '+' 表示收入
+  record:Record = {type:this.type,tag:'',remake:'',amount:0};
+
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
     else throw new Error('type is unknown');
+  }
+
+  @Watch('type')
+  onTypeChange(newValue:string){
+    this.record.type = newValue;
+  }
+  // 获取选择标签的回调
+  getCheckedTag(checked: string) {
+    console.log(checked);
+    this.record.tag = checked;
+  }
+
+  // 获取输入面板内容的
+  getInputPadData(output: string, remake: string) {
+    this.record.amount = Number(output);
+    this.record.remake = remake;
+    console.log(output, remake);
   }
 }
 </script>
@@ -68,11 +97,13 @@ export default class Add extends Vue {
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 10px;
+
   .in,
   .out {
     font-size: 22px;
     margin: 0 10px;
     position: relative;
+
     &.selected {
       &::after {
         content: "";
@@ -85,6 +116,7 @@ export default class Add extends Vue {
       }
     }
   }
+
   .close {
     position: absolute;
     right: 20px;

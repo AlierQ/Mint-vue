@@ -15,11 +15,18 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Remake extends Vue {
   content = '';
+
+  // 监视属性
+  @Watch('content')
+  onContentChanged(newValue: string, oldValue: string) {
+    this.$emit('get:remakeData', newValue);
+  }
+
 }
 </script>
 
