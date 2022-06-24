@@ -102,6 +102,7 @@ export default class InputPad extends Vue {
   done() {
     if(this.output!=='0'&&this.output!=='0.'){
       this.$emit('get:inputPadData',this.output,this.remakeData)
+      this.$emit('submit')
     }
   }
 

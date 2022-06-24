@@ -29,7 +29,7 @@
                    :type="type"></LabelList>
       </template>
       <template slot="bottom">
-        <InputPad @get:inputPadData="getInputPadData"></InputPad>
+        <InputPad @submit="saveRecord" @get:inputPadData="getInputPadData"></InputPad>
       </template>
     </Layout>
   </div>
@@ -61,7 +61,8 @@ export default class Add extends Vue {
   outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
   inTagsData = [{0: 'wage', 1: '工资'}];
   type = '-'; // '-' 表示支出 '+' 表示收入
-  record:Record = {type:this.type,tag:'',remake:'',amount:0};
+  record: Record = {type: this.type, tag: '', remake: '', amount: 0};
+  recordList: Record[] = [];
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
@@ -69,9 +70,10 @@ export default class Add extends Vue {
   }
 
   @Watch('type')
-  onTypeChange(newValue:string){
+  onTypeChange(newValue: string) {
     this.record.type = newValue;
   }
+
   // 获取选择标签的回调
   getCheckedTag(checked: string) {
     console.log(checked);
@@ -83,6 +85,19 @@ export default class Add extends Vue {
     this.record.amount = Number(output);
     this.record.remake = remake;
     console.log(output, remake);
+  }
+
+  // 保存一条记录到所有记录中
+  saveRecord() {
+    // 这里push之后再添加会改变前面的值
+    this.recordList.push(this.record);
+    console.log(this.recordList);
+  }
+
+  // 监听所有记录,一旦有变动就存入localstorage
+  @Watch('recordList')
+  onRecordListChange() {
+    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 }
 </script>
