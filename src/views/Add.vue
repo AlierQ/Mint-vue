@@ -25,7 +25,7 @@
         </div>
       </template>
       <template slot="content">
-        <OutIconList ></OutIconList>
+        <OutIconList :tagsData="type === '-'?outTagsData:inTagsData" :type="type"></OutIconList>
       </template>
       <template slot="bottom">
         <InputPad></InputPad>
@@ -38,7 +38,7 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
-import OutIconList from '@/components/OutIconList.vue';
+import OutIconList from '@/components/LabelList.vue';
 // 装饰器
 @Component({
   // ts引入组件
@@ -48,6 +48,8 @@ import OutIconList from '@/components/OutIconList.vue';
   }
 })
 export default class Add extends Vue {
+  outTagsData = [{0:'catering',1:'餐饮'},{0:'shopping',1:'购物'}]
+  inTagsData = [{0:'wage',1:'工资'}]
   type = '-'; // '-' 表示支出 '+' 表示收入
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
