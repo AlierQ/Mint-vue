@@ -1,7 +1,7 @@
 /**
- * @Description:
- * @author AlierQ
- * @date 20/6/2022
+* @Description:
+* @author AlierQ
+* @date 20/6/2022
 */
 <template>
   <div>
@@ -57,12 +57,13 @@
 
 <script lang="ts">
 export default {
-  name: "Detail",
+  name: 'Detail',
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+
 .top {
   background: $color-basic;
   height: 170px;
@@ -70,12 +71,14 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .title {
     font-weight: 500;
     font-size: 24px;
     color: #333333;
     margin-top: 10px;
   }
+
   .money-record {
     //border: 1px solid blue;
     align-self: flex-start;
@@ -84,43 +87,56 @@ export default {
     align-items: center;
     margin-left: 20px;
     margin-top: 20px;
+
     .data {
       display: flex;
+
       .in {
         margin-right: 80px;
+
         .in-title {
           color: $color-font;
         }
+
         .money {
           color: $color-font;
+
           span {
             font-size: 22px;
           }
         }
       }
+
       .out {
         .out-title {
           color: $color-font;
         }
+
         .money {
           color: $color-font;
+
           span {
             font-size: 22px;
           }
         }
       }
     }
+
     .line {
-      width: 0;height: 50px;
+      width: 0;
+      height: 50px;
       border: 1px solid #333333;
       margin: 0 30px;
     }
+
     .date {
       .year {
         color: #595959;
       }
+
       .mouth {
         color: $color-font;
+
         span {
           font-size: 24px;
         }
@@ -128,37 +144,45 @@ export default {
     }
   }
 }
+
 .record {
-  ul{
+  ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    li{
-      a{
+
+    li {
+      a {
         display: flex;
         align-items: center;
-        height: 48px;width: 96vw;
+        height: 48px;
+        width: 96vw;
         margin-top: 10px;
-        border: 1px solid rgba(0,0,0,0.2);
+        border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 10px;
-        .icon-container{
-          width: 36px;height: 36px;
+
+        .icon-container {
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           background: $color-basic;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin:0 10px;
-          .icon{
+          margin: 0 10px;
+
+          .icon {
             width: 22px;
             height: 22px;
             fill: #545353;
           }
         }
-        .remark{
+
+        .remark {
           flex-grow: 1;
         }
-        .money-number{
+
+        .money-number {
           margin-right: 10px;
           font-size: 18px;
         }

@@ -68,13 +68,11 @@ export default class Add extends Vue {
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 10px;
-
   .in,
   .out {
     font-size: 22px;
     margin: 0 10px;
     position: relative;
-
     &.selected {
       &::after {
         content: "";
