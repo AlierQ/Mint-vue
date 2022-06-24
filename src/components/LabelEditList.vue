@@ -1,0 +1,83 @@
+<template>
+  <div>
+    <ul>
+      <li v-for="(item,index) in tagsData" :key="index">
+        <div class="delete" @click="deleteLabel(item)">
+          <Icon name="delete"></Icon>
+        </div>
+        <div class="content">
+          <div class="tu">
+            <Icon :name="item[0]"></Icon>
+          </div>
+          <div>{{ item[1] }}</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class LabelEditList extends Vue {
+  @Prop(Array) tagsData: any[] | undefined;
+
+  deleteLabel(item: any) {
+    // console.log(item);
+
+    if (this.tagsData !== undefined) {
+      const arr = this.tagsData.filter((obj: any) => {
+        return item !== obj;
+      })
+      // 自定义事件,传回处理过后的参数
+      this.$emit('update:tagsData', arr);
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+
+ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: $color-font;
+
+  li {
+    //border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    height: 50px;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+
+    .delete {
+      margin-right: 15px;
+
+      > .icon {
+        fill: #EB4D3D;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .content {
+      display: flex;
+
+      .tu {
+        margin-right: 15px;
+      }
+
+      .icon {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+}
+
+</style>

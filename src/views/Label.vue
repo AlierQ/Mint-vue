@@ -3,24 +3,26 @@
     <Layout>
       <template slot="top">
         <div class="top">
-          <router-link to="/add" class="back-and-title">
-            <div class="back">
+          <div class="back-and-title">
+            <router-link to="/add" class="back">
               <Icon name="back"></Icon>
               <span>返回</span>
-            </div>
+            </router-link>
             <div class="title">
               标签设置
             </div>
-          </router-link>
+          </div>
           <div class="in-and-out">
-            <div class="in" :class="type === '-' && 'selected'">支出</div>
-            <div class="out" :class="type === '+' && 'selected'">收入</div>
+            <div @click="select('-')" class="in" :class="type === '-' && 'selected'">支出</div>
+            <div @click="select('+')" class="out" :class="type === '+' && 'selected'">收入</div>
           </div>
         </div>
       </template>
-      <template slot="content">内容</template>
+      <template slot="content">
+        <LabelEditList @update:tagsData="update" :tagsData.sync="type==='-'?outTagsData:inTagsData"></LabelEditList>
+      </template>
       <template slot="bottom">
-        <div class="bottom">
+        <div class="bottom" @click="create">
           <div class="add-label">+添加标签</div>
         </div>
       </template>
@@ -32,24 +34,49 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Layout from '@/components/Layout.vue';
+import LabelEditList from '@/components/LabelEditList.vue';
 
 @Component({
   components: {
-    Layout
+    Layout,
+    LabelEditList
   }
 })
 export default class Label extends Vue {
   type = '-';
+  outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
+  inTagsData = [{0: 'wage', 1: '工资'}];
+
+  select(type: string) {
+    this.type = type;
+  }
+
+  create() {
+    if (this.type === '-') {
+      this.outTagsData.push({0: 'dayuse', 1: '日用'});
+    } else {
+      this.inTagsData.push({0: 'parttime', 1: '兼职'});
+    }
+  }
+
+  update(arr:any){
+    if(this.type==='-'){
+      this.outTagsData = arr;
+    }else{
+      this.inTagsData = arr;
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+
 .top {
   height: 130px;
   background: #79c79f;
   display: flex;
-  color:$color-font;
+  color: $color-font;
   flex-direction: column;
   justify-content: flex-end;
 
@@ -61,11 +88,13 @@ export default class Label extends Vue {
       position: absolute;
       padding-top: 5px;
       left: 15px;
-      .icon{
+
+      .icon {
         width: 18px;
         height: 18px;
       }
-      span{
+
+      span {
         font-size: 18px;
       }
     }
@@ -100,13 +129,15 @@ export default class Label extends Vue {
     }
   }
 }
-.bottom{
+
+.bottom {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  .add-label{
+
+  .add-label {
     font-size: 20px;
   }
 }
