@@ -90,7 +90,10 @@ export default class Add extends Vue {
   // 保存一条记录到所有记录中
   saveRecord() {
     // 这里push之后再添加会改变前面的值
-    this.recordList.push(this.record);
+    // 解决方式:做一下深拷贝深拷贝
+    const recordClone = JSON.parse(JSON.stringify(this.record))
+    this.recordList.push(recordClone);
+    this.$emit('init')
     console.log(this.recordList);
   }
 
