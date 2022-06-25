@@ -1,6 +1,7 @@
 <template>
   <div>
     <Layout>
+
       <template slot="top">
         <div class="top">
           <div class="back-and-title">
@@ -20,6 +21,7 @@
       </template>
       <template slot="content">
         <LabelEditList @update:tagsData="update" :tagsData="type==='-'?outTagsData:inTagsData"></LabelEditList>
+        {{outTagsData}}
       </template>
       <template slot="bottom">
         <div class="bottom" @click="create">
@@ -32,9 +34,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Watch} from 'vue-property-decorator';
 import Layout from '@/components/Layout.vue';
 import LabelEditList from '@/components/LabelEditList.vue';
+import LabelModel from '@/models/labelModel';
 
 @Component({
   components: {
@@ -44,8 +47,10 @@ import LabelEditList from '@/components/LabelEditList.vue';
 })
 export default class Label extends Vue {
   type = '-';
-  outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
-  inTagsData = [{0: 'wage', 1: '工资'}];
+  outTagsData = LabelModel.fetch('outTags')
+  inTagsData = LabelModel.fetch('inTags')
+  // outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
+  // inTagsData = [{0: 'wage', 1: '工资'}];
 
   select(type: string) {
     this.type = type;
@@ -53,10 +58,20 @@ export default class Label extends Vue {
 
   create() {
     if (this.type === '-') {
-      this.outTagsData.push({0: 'dayuse', 1: '日用'});
+      this.outTagsData.push({0: 'dayuse', 1: '日用' + Math.random()});
     } else {
       this.inTagsData.push({0: 'parttime', 1: '兼职'});
     }
+  }
+
+  @Watch('outTagsData')
+  onOutTagsDataChange(){
+    LabelModel.save('outTags',this.outTagsData)
+  }
+
+  @Watch('inTagsData')
+  onInTagsDataChange(){
+    LabelModel.save('inTags',this.inTagsData)
   }
 
   update(arr:any){

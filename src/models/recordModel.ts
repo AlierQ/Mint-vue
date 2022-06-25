@@ -1,5 +1,5 @@
 const localStorageKey = "recordList";
-const model = {
+const recordModel = {
   fetch() {
     // 声明返回值为RecordItem
     return JSON.parse(
@@ -13,4 +13,4 @@ const model = {
     return JSON.parse(JSON.stringify(data));
   },
 };
-export default model;
+export default recordModel;

@@ -5,7 +5,6 @@
 */
 <template>
   <div>
-    {{ recordList }}
     <Layout>
       <!-- 调用子组件并且将内容插到子元素内部的插槽中 -->
       <!-- 通过slot属性指定某一个插槽 -->
@@ -44,7 +43,7 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
-import Model from '@/model';
+import RecordModel from '@/models/recordModel';
 
 // 装饰器
 @Component({
@@ -59,7 +58,7 @@ export default class Add extends Vue {
   inTagsData = [{0: 'wage', 1: '工资'}];
   type = '-'; // '-' 表示支出 '+' 表示收入
   record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
-  recordList: RecordItem[] = Model.fetch();
+  recordList: RecordItem[] = RecordModel.fetch();
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
@@ -86,7 +85,7 @@ export default class Add extends Vue {
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone = Model.clone(this.record);
+    const recordClone = RecordModel.clone(this.record);
     recordClone.createTime = new Date();
     this.recordList.push(recordClone);
   }
@@ -94,7 +93,7 @@ export default class Add extends Vue {
   // 监听所有记录,一旦有变动就存入localstorage
   @Watch('recordList')
   onRecordListChange() {
-    Model.save(this.recordList);
+    RecordModel.save(this.recordList);
   }
 }
 </script>
