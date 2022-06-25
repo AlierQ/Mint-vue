@@ -2,14 +2,14 @@
   <div>
     <ul>
       <li v-for="(item,index) in tagsData" :key="index">
-        <div class="delete" @click="deleteLabel(item)">
+        <div class="delete" @click="deleteLabel(item.id)">
           <Icon name="delete"></Icon>
         </div>
         <div class="content">
           <div class="tu">
-            <Icon :name="item[0]"></Icon>
+            <Icon :name="item.iconName"></Icon>
           </div>
-          <div>{{ item[1] }}</div>
+          <div>{{ item.notes }}</div>
         </div>
       </li>
     </ul>
@@ -24,12 +24,10 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class LabelEditList extends Vue {
   @Prop(Array) tagsData: any[] | undefined;
 
-  deleteLabel(item: any) {
-    // console.log(item);
-
+  deleteLabel(id: string) {
     if (this.tagsData !== undefined) {
-      const arr = this.tagsData.filter((obj: any) => {
-        return item !== obj;
+      const arr = this.tagsData.filter((item: any) => {
+        return item.id !== id;
       })
       // 自定义事件,传回处理过后的参数
       this.$emit('update:tagsData', arr);

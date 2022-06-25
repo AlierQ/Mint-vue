@@ -3,12 +3,12 @@
     <ul>
       <li v-for="(item,index) in tagsData" :key="index">
         <div class="one-icon"
-             @click="select(item[0])"
-             :class="checked === item[0] && 'selected'">
+             @click="select(item.iconName,item.id)"
+             :class="checked === item.iconName && 'selected'">
           <!-- :class="selected: true/false/判断表达式" 也可以空类的添加-->
-          <Icon :name="item[0]"></Icon>
+          <Icon :name="item.iconName"></Icon>
         </div>
-        <div class="label">{{ item[1] }}</div>
+        <div class="label">{{ item.notes }}</div>
       </li>
       <!--      <li v-show="type === '+'" v-for="(item,index) in inTagsData" :key="index">-->
       <!--        <div class="one-icon"-->
@@ -47,9 +47,9 @@ export default class LabelList extends Vue {
   @Prop(Array) tagsData: any[] | undefined;
   @Prop(String) readonly type: string | undefined;
 
-  select(name: string) {
-    this.checked = name;
-    this.$emit('get:checked',this.checked)
+  select(iconName: string,id:string) {
+    this.checked = iconName;
+    this.$emit('get:checked',this.checked,id)
   }
 }
 </script>

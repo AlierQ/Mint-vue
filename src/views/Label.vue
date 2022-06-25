@@ -49,8 +49,8 @@ export default class Label extends Vue {
   type = '-';
   outTagsData = LabelModel.fetch('outTags')
   inTagsData = LabelModel.fetch('inTags')
-  // outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
-  // inTagsData = [{0: 'wage', 1: '工资'}];
+  // outTagsDatat = [{id:1,iconName: 'catering', notes: '餐饮'}, {id:2,iconName: 'shopping', notes: '购物'}];
+  // inTagsDatat = [{id:1 ,iconName:'wage', notes: '工资'}];
 
   select(type: string) {
     this.type = type;
@@ -58,9 +58,9 @@ export default class Label extends Vue {
 
   create() {
     if (this.type === '-') {
-      this.outTagsData.push({0: 'dayuse', 1: '日用' + Math.random()});
+      this.outTagsData.push({id:''+Math.random(),iconName: 'dayuse', notes: '日用'});
     } else {
-      this.inTagsData.push({0: 'parttime', 1: '兼职'});
+      this.inTagsData.push({id:''+Math.random(),iconName: 'parttime', notes: '兼职'});
     }
   }
 
