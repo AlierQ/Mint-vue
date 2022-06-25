@@ -44,7 +44,7 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
-import Model from '@/model'
+import Model from '@/model';
 
 // 装饰器
 @Component({
@@ -86,7 +86,7 @@ export default class Add extends Vue {
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone: RecordItem = JSON.parse(JSON.stringify(this.record));
+    const recordClone = Model.clone(this.record);
     recordClone.createTime = new Date();
     this.recordList.push(recordClone);
   }
@@ -94,7 +94,7 @@ export default class Add extends Vue {
   // 监听所有记录,一旦有变动就存入localstorage
   @Watch('recordList')
   onRecordListChange() {
-    Model.save(this.recordList)
+    Model.save(this.recordList);
   }
 }
 </script>
