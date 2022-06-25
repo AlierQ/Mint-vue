@@ -39,18 +39,22 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class LabelList extends Vue {
-  checkedId = ''
+  checkedId = '';
   @Prop(Array) tagsData: any[] | undefined;
   @Prop(String) readonly type: string | undefined;
 
-  select(iconName: string,id:string) {
+  select(iconName: string, id: string) {
     this.checkedId = id;
-    console.log(id);
-    this.$emit('get:checked',iconName,id)
+    this.$emit('get:checked', iconName, id);
+  }
+
+  @Watch('type')
+  onTypeChange() {
+    this.checkedId = '';
   }
 }
 </script>
