@@ -23,7 +23,7 @@
         <LabelEditList @update:tagsData="update"
                        @update:Note="updateNotes"
                        :tagsData="type==='-'?outTagsData:inTagsData"></LabelEditList>
-        {{outTagsData}}
+        {{ outTagsData }}
       </template>
       <template slot="bottom">
         <div class="bottom" @click="create">
@@ -36,10 +36,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component,Watch} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import Layout from '@/components/Layout.vue';
 import LabelEditList from '@/components/LabelEditList.vue';
 import LabelModel from '@/models/labelModel';
+import createId from '@/lib/createId';
+
 
 @Component({
   components: {
@@ -49,8 +51,8 @@ import LabelModel from '@/models/labelModel';
 })
 export default class Label extends Vue {
   type = '-';
-  outTagsData = LabelModel.fetch('outTags')
-  inTagsData = LabelModel.fetch('inTags')
+  outTagsData = LabelModel.fetch('outTags');
+  inTagsData = LabelModel.fetch('inTags');
   // outTagsDatat = [{id:1,iconName: 'catering', notes: '餐饮'}, {id:2,iconName: 'shopping', notes: '购物'}];
   // inTagsDatat = [{id:1 ,iconName:'wage', notes: '工资'}];
 
@@ -60,43 +62,48 @@ export default class Label extends Vue {
 
   create() {
     if (this.type === '-') {
-      this.outTagsData.push({id:''+Math.random(),iconName: 'dayuse', notes: '日用'});
+      const id = createId('out');
+      if (id !== undefined)
+        this.outTagsData.push({id: id.toString(), iconName: 'dayuse', notes: '日用'});
     } else {
-      this.inTagsData.push({id:''+Math.random(),iconName: 'parttime', notes: '兼职'});
+      const id = createId('in');
+      if (id !== undefined)
+        this.inTagsData.push({id: id.toString(), iconName: 'parttime', notes: '兼职'});
+    }
+  }
+
+  update(arr: any) {
+    if (this.type === '-') {
+      this.outTagsData = arr;
+    } else {
+      this.inTagsData = arr;
+    }
+  }
+
+  updateNotes(id: string, noteValue: string) {
+    if (this.type === '-') {
+      this.outTagsData.map((item: any) => {
+        if (item.id === id) {
+          item.notes = noteValue;
+        }
+      });
+    } else {
+      this.inTagsData.map((item: any) => {
+        if (item.id === id) {
+          item.notes = noteValue;
+        }
+      });
     }
   }
 
   @Watch('outTagsData')
-  onOutTagsDataChange(){
-    LabelModel.save('outTags',this.outTagsData)
+  onOutTagsDataChange() {
+    LabelModel.save('outTags', this.outTagsData);
   }
 
   @Watch('inTagsData')
-  onInTagsDataChange(){
-    LabelModel.save('inTags',this.inTagsData)
-  }
-
-  update(arr:any){
-    if(this.type==='-'){
-      this.outTagsData = arr;
-    }else{
-      this.inTagsData = arr;
-    }
-  }
-  updateNotes(id:string,noteValue:string){
-    if(this.type==='-'){
-      this.outTagsData.map((item:any)=>{
-          if(item.id===id){
-            item.notes = noteValue;
-          }
-      })
-    }else{
-      this.inTagsData.map((item:any)=>{
-        if(item.id===id){
-          item.notes = noteValue;
-        }
-      })
-    }
+  onInTagsDataChange() {
+    LabelModel.save('inTags', this.inTagsData);
   }
 }
 </script>
