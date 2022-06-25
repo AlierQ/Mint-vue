@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="icon-list">
-        <div v-for="items in iconNameList" :key="items">
+        <div v-for="(items,index) in iconNameList" :key="index">
           <div class="icon-title">{{ items.title }}</div>
           <ul>
             <li v-for="iconName in items.icons" :key="iconName">
@@ -44,20 +44,16 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
-@Component
+@Component({
+  computed:{
+    iconNameList() {
+      return this.$store.state.iconNameList;
+    }
+  }
+})
 export default class LabelAdd extends Vue {
   checked = 'shopping';
   notes = '';
-  iconNameList = [
-    {
-      title:'支出',
-      icons:['catering', 'shopping','dayuse']
-    },
-    {
-      title:'收入',
-      icons:['parttime','wage']
-    }
-  ]
   @Prop(String) type: string | undefined;
 
   back() {
@@ -66,15 +62,20 @@ export default class LabelAdd extends Vue {
 
   done() {
     if (this.notes !== '') {
-      if (this.type === '-') {
-        this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
-      } else {
-        this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
+      console.log(this.notes.length);
+      if(this.notes.length<=4){
+        if (this.type === '-') {
+          this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
+        } else {
+          this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
+        }
+        this.back();
+      }else{
+        alert('类别名太长!');
       }
     } else {
-      alert('未输入名称!');
+      alert('未输入类别名!');
     }
-    this.back();
   }
 }
 </script>
@@ -161,10 +162,12 @@ export default class LabelAdd extends Vue {
       flex-direction: column;
       align-items: center;
       overflow: auto;
-      .icon-title{
+
+      .icon-title {
         margin-top: 10px;
         text-align: center;
       }
+
       ul {
         margin-top: 5px;
         margin-bottom: 10px;
