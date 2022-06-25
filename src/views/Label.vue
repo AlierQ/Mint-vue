@@ -1,7 +1,6 @@
 <template>
   <div>
     <Layout>
-
       <template slot="top">
         <div class="top">
           <div class="back-and-title">
@@ -25,11 +24,15 @@
         ></LabelEditList>
       </template>
       <template slot="bottom">
-        <div class="bottom" @click="create">
+        <div class="bottom" @click="showAddPage=true">
           <div class="add-label">+添加标签</div>
         </div>
       </template>
     </Layout>
+    <LabelAdd class="label-add"
+              v-if="showAddPage"
+              :type="type"
+              @closePage="closePage"></LabelAdd>
   </div>
 </template>
 
@@ -38,9 +41,11 @@ import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Layout from '@/components/Layout.vue';
 import LabelEditList from '@/components/LabelEditList.vue';
+import LabelAdd from '@/components/LabelAdd.vue';
 
 @Component({
   components: {
+    LabelAdd,
     Layout,
     LabelEditList
   },
@@ -56,17 +61,14 @@ import LabelEditList from '@/components/LabelEditList.vue';
 })
 export default class Label extends Vue {
   type = '-';
+  showAddPage = false;
 
   select(type: string) {
     this.type = type;
   }
 
-  create() {
-    if (this.type === '-') {
-      this.$store.commit('CREATE_TAG', [this.type, {iconName: 'dayuse', notes: '日用'}]);
-    } else {
-      this.$store.commit('CREATE_TAG', [this.type, {iconName: 'parttime', notes: '兼职'}]);
-    }
+  closePage() {
+    this.showAddPage = false;
   }
 
   beforeDestroy() {
@@ -146,5 +148,13 @@ export default class Label extends Vue {
   .add-label {
     font-size: 20px;
   }
+}
+
+.label-add {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
 }
 </style>
