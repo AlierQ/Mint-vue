@@ -23,22 +23,15 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class LabelEditList extends Vue {
   @Prop(Array) tagsData: any[] | undefined;
+  @Prop(String) type: string | undefined;
 
   deleteLabel(id: string) {
-    if (this.tagsData !== undefined) {
-      const arr = this.tagsData.filter((item: any) => {
-        return item.id !== id;
-      });
-      // 自定义事件,传回处理过后的参数
-      this.$emit('update:tagsData', arr);
-    }
+      this.$store.commit('DELETE_TAG',[id,this.type]);
   }
 
-  updateNotes(id:any){
-    const newNotes = prompt('请输入新的内容：')
-    if(newNotes !== undefined){
-      this.$emit('update:Note', id,newNotes);
-    }
+  updateNotes(id: any) {
+    const newNotes = prompt('请输入新的内容：');
+    this.$store.commit('UPDATE_TAG_NOTES',[id,this.type,newNotes])
   }
 }
 </script>

@@ -43,8 +43,6 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
-import RecordModel from '@/models/recordModel';
-import LabelModel from '@/models/labelModel';
 import clone from '@/lib/clone';
 
 // 装饰器
@@ -53,23 +51,26 @@ import clone from '@/lib/clone';
   components: {
     LabelList,
     InputPad,
+  },
+  computed: {
+    outTagsData() {
+      return this.$store.state.outTagsData;
+    },
+    inTagsData() {
+      return this.$store.state.inTagsData;
+    },
+    recordList() {
+      return this.$store.state.recordList;
+    }
   }
 })
 export default class Add extends Vue {
-  outTagsData = LabelModel.fetch('outTags');
-  inTagsData = LabelModel.fetch('inTags');
   type = '-'; // '-' 表示支出 '+' 表示收入
   record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
-  recordList: RecordItem[] = RecordModel.fetch();
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
     else throw new Error('type is unknown');
-  }
-
-  @Watch('type')
-  onTypeChange(newValue: string) {
-    this.record.type = newValue;
   }
 
   // 获取选择标签的回调
@@ -88,15 +89,14 @@ export default class Add extends Vue {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
     const recordClone = clone(this.record);
-    recordClone.createTime = new Date();
-    this.recordList.push(recordClone);
+    this.$store.commit('CREATE_RECORD', recordClone);
   }
 
-  // 监听所有记录,一旦有变动就存入localstorage
-  @Watch('recordList')
-  onRecordListChange() {
-    RecordModel.save(this.recordList);
+  @Watch('type')
+  onTypeChange(newValue: string) {
+    this.record.type = newValue;
   }
+
 }
 </script>
 
