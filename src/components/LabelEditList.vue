@@ -9,7 +9,7 @@
           <div class="tu">
             <Icon :name="item.iconName"></Icon>
           </div>
-          <div>{{ item.notes }}</div>
+          <div @click="updateNotes(item)">{{ item.notes }}</div>
         </div>
       </li>
     </ul>
@@ -28,10 +28,14 @@ export default class LabelEditList extends Vue {
     if (this.tagsData !== undefined) {
       const arr = this.tagsData.filter((item: any) => {
         return item.id !== id;
-      })
+      });
       // 自定义事件,传回处理过后的参数
       this.$emit('update:tagsData', arr);
     }
+  }
+
+  updateNotes(item:any){
+    item.notes = prompt('请输入新的内容：')
   }
 }
 </script>
