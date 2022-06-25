@@ -45,7 +45,7 @@ import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
 import RecordModel from '@/models/recordModel';
 import LabelModel from '@/models/labelModel';
-
+import clone from '@/lib/clone';
 
 // 装饰器
 @Component({
@@ -87,7 +87,7 @@ export default class Add extends Vue {
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone = RecordModel.clone(this.record);
+    const recordClone = clone(this.record);
     recordClone.createTime = new Date();
     this.recordList.push(recordClone);
   }

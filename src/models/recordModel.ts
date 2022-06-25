@@ -9,8 +9,5 @@ const recordModel = {
   save(data: RecordItem[]) {
     window.localStorage.setItem(localStorageKey, JSON.stringify(data));
   },
-  clone(data: RecordItem | RecordItem[]) {
-    return JSON.parse(JSON.stringify(data));
-  },
 };
 export default recordModel;
