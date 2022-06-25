@@ -44,6 +44,8 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
 import RecordModel from '@/models/recordModel';
+import LabelModel from '@/models/labelModel';
+
 
 // 装饰器
 @Component({
@@ -54,8 +56,8 @@ import RecordModel from '@/models/recordModel';
   }
 })
 export default class Add extends Vue {
-  outTagsData = [{id:'1',iconName: 'catering', notes: '餐饮'}, {id:'2',iconName: 'shopping', notes: '购物'}];
-  inTagsData = [{id:'1' ,iconName:'wage', notes: '工资'}];
+  outTagsData = LabelModel.fetch('outTags');
+  inTagsData = LabelModel.fetch('inTags');
   type = '-'; // '-' 表示支出 '+' 表示收入
   record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
   recordList: RecordItem[] = RecordModel.fetch();
@@ -71,7 +73,7 @@ export default class Add extends Vue {
   }
 
   // 获取选择标签的回调
-  getCheckedTag(iconName: string,id:string) {
+  getCheckedTag(iconName: string, id: string) {
     this.record.tag = iconName;
   }
 
