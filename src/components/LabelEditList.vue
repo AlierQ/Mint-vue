@@ -9,7 +9,7 @@
           <div class="tu">
             <Icon :name="item.iconName"></Icon>
           </div>
-          <div @click="updateNotes(item)">{{ item.notes }}</div>
+          <div @click="updateNotes(item.id)">{{ item.notes }}</div>
         </div>
       </li>
     </ul>
@@ -34,8 +34,11 @@ export default class LabelEditList extends Vue {
     }
   }
 
-  updateNotes(item:any){
-    item.notes = prompt('请输入新的内容：')
+  updateNotes(id:any){
+    const newNotes = prompt('请输入新的内容：')
+    if(newNotes !== undefined){
+      this.$emit('update:Note', id,newNotes);
+    }
   }
 }
 </script>

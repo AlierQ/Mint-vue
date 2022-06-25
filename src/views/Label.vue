@@ -20,7 +20,9 @@
         </div>
       </template>
       <template slot="content">
-        <LabelEditList @update:tagsData="update" :tagsData="type==='-'?outTagsData:inTagsData"></LabelEditList>
+        <LabelEditList @update:tagsData="update"
+                       @update:Note="updateNotes"
+                       :tagsData="type==='-'?outTagsData:inTagsData"></LabelEditList>
         {{outTagsData}}
       </template>
       <template slot="bottom">
@@ -79,6 +81,21 @@ export default class Label extends Vue {
       this.outTagsData = arr;
     }else{
       this.inTagsData = arr;
+    }
+  }
+  updateNotes(id:string,noteValue:string){
+    if(this.type==='-'){
+      this.outTagsData.map((item:any)=>{
+          if(item.id===id){
+            item.notes = noteValue;
+          }
+      })
+    }else{
+      this.inTagsData.map((item:any)=>{
+        if(item.id===id){
+          item.notes = noteValue;
+        }
+      })
     }
   }
 }
