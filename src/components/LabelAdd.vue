@@ -24,13 +24,16 @@
         </div>
       </div>
       <div class="icon-list">
-        <ul>
-          <li v-for="(iconName) in iconNameList" :key="iconName">
-            <div class="one-icon" @click="checked=iconName">
-              <Icon :name="iconName"></Icon>
-            </div>
-          </li>
-        </ul>
+        <div v-for="items in iconNameList" :key="items">
+          <div class="icon-title">{{ items.title }}</div>
+          <ul>
+            <li v-for="iconName in items.icons" :key="iconName">
+              <div class="one-icon" @click="checked=iconName">
+                <Icon :name="iconName"></Icon>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div></div>
@@ -45,7 +48,16 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class LabelAdd extends Vue {
   checked = 'shopping';
   notes = '';
-  iconNameList = ['catering', 'shopping'];
+  iconNameList = [
+    {
+      title:'支出',
+      icons:['catering', 'shopping','dayuse']
+    },
+    {
+      title:'收入',
+      icons:['parttime','wage']
+    }
+  ]
   @Prop(String) type: string | undefined;
 
   back() {
@@ -145,13 +157,16 @@ export default class LabelAdd extends Vue {
     }
 
     .icon-list {
-      flex-grow: 1;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
       overflow: auto;
-
+      .icon-title{
+        margin-top: 10px;
+        text-align: center;
+      }
       ul {
-        margin-top: 20px;
+        margin-top: 5px;
         margin-bottom: 10px;
         width: 90vw;
         display: grid;
