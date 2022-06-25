@@ -44,16 +44,7 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
-
-// 声明对象
-type Record = {
-  // 可以写数据类型也可以写类(构造函数)
-  type: string;
-  tag: string;
-  remake: string;
-  amount: number;
-  createTime?: Date;  // ? 表示可以不存在
-}
+import Model from '@/model'
 
 // 装饰器
 @Component({
@@ -67,8 +58,8 @@ export default class Add extends Vue {
   outTagsData = [{0: 'catering', 1: '餐饮'}, {0: 'shopping', 1: '购物'}];
   inTagsData = [{0: 'wage', 1: '工资'}];
   type = '-'; // '-' 表示支出 '+' 表示收入
-  record: Record = {type: this.type, tag: '', remake: '', amount: 0};
-  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+  record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
+  recordList: RecordItem[] = Model.fetch();
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
@@ -95,7 +86,7 @@ export default class Add extends Vue {
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+    const recordClone: RecordItem = JSON.parse(JSON.stringify(this.record));
     recordClone.createTime = new Date();
     this.recordList.push(recordClone);
   }
@@ -103,7 +94,7 @@ export default class Add extends Vue {
   // 监听所有记录,一旦有变动就存入localstorage
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    Model.save(this.recordList)
   }
 }
 </script>
