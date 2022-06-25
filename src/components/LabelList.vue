@@ -4,7 +4,7 @@
       <li v-for="(item,index) in tagsData" :key="index">
         <div class="one-icon"
              @click="select(item.iconName,item.id)"
-             :class="checked === item.iconName && 'selected'">
+             :class="checkedId === item.id && 'selected'">
           <!-- :class="selected: true/false/判断表达式" 也可以空类的添加-->
           <Icon :name="item.iconName"></Icon>
         </div>
@@ -43,13 +43,14 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class LabelList extends Vue {
-  checked = '';
+  checkedId = ''
   @Prop(Array) tagsData: any[] | undefined;
   @Prop(String) readonly type: string | undefined;
 
   select(iconName: string,id:string) {
-    this.checked = iconName;
-    this.$emit('get:checked',this.checked,id)
+    this.checkedId = id;
+    console.log(id);
+    this.$emit('get:checked',iconName,id)
   }
 }
 </script>
@@ -58,7 +59,6 @@ export default class LabelList extends Vue {
 @import "~@/assets/style/helper.scss";
 
 .icon-list {
-  //border: 1px solid red;
   display: flex;
   justify-content: center;
 
