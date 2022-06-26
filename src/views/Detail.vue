@@ -12,8 +12,8 @@
           <div class="title">薄荷流水</div>
           <div class="money-record">
             <div class="date">
-              <div class="year">2022年</div>
-              <div class="mouth"><span>06</span>月</div>
+              <div class="year">{{ year }}年</div>
+              <div class="mouth"><span>{{ month }}</span>月</div>
             </div>
             <div class="line"></div>
             <div class="data">
@@ -86,11 +86,25 @@ import toFixed from '@/lib/toFixed';
         }
       });
       return toFixed(num, 2);
+    },
+    year() {
+      const date = new Date();
+      return date.getFullYear();
+    },
+    month() {
+      const month = new Date().getMonth() + 1;
+      if (month < 10) {
+        return '0' + month;
+      } else {
+        return month;
+      }
     }
   }
 })
 export default class Detail extends Vue {
-
+  beforeDestroy() {
+    this.$store.commit('SAVE_ALL');
+  }
 }
 </script>
 
@@ -188,13 +202,9 @@ export default class Detail extends Vue {
       > div {
         display: flex;
         align-items: center;
-        height: 48px;
+        height: 54px;
         width: 96vw;
-        margin-top: 10px;
-        //border-top: 1px solid rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        //border-radius: 10px;
-
         .icon-container {
           width: 36px;
           height: 36px;

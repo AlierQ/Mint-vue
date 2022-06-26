@@ -8,8 +8,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    outTagsData: LabelModel.fetch("outTags"),
-    inTagsData: LabelModel.fetch("inTags"),
+    outTagsData: LabelModel.fetch("outTags") && [
+      { iconName: "catering", notes: "餐饮", id: 1 },
+      { iconName: "shopping", notes: "购物", id: 2 },
+      { iconName: "dayuse", notes: "日用", id: 3 },
+      { iconName: "traffic", notes: "交通", id: 4 },
+      { iconName: "sport", notes: "运动", id: 5 },
+      { iconName: "pet", notes: "宠物", id: 6 },
+      { iconName: "recreation", notes: "娱乐", id: 7 },
+    ],
+    inTagsData: LabelModel.fetch("inTags") && [
+      { iconName: "parttime", notes: "兼职", id: 1 },
+      { iconName: "wage", notes: "工资", id: 2 },
+      { iconName: "licai", notes: "理财", id: 3 },
+      { iconName: "otherrevenue", notes: "其他", id: 4 },
+    ],
     recordList: RecordModel.fetch(),
     iconNameList: [
       {
