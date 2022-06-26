@@ -19,11 +19,11 @@
             <div class="data">
               <div class="in">
                 <div class="in-title">收入</div>
-                <div class="money"><span>0</span>.00</div>
+                <div class="money"><span>{{ innumber }}</span></div>
               </div>
               <div class="out">
                 <div class="out-title">支出</div>
-                <div class="money"><span>0</span>.00</div>
+                <div class="money"><span>{{ outnumber }}</span></div>
               </div>
             </div>
           </div>
@@ -32,18 +32,18 @@
       <template slot="content">
         <div class="record">
           <ul>
-            <li>
-              <a href="">
+            <li v-for="(item,index) in recordList" :key="index">
+              <div>
                 <div class="icon-container">
-                  <Icon name="detail"></Icon>
+                  <Icon :name="item.tag"></Icon>
                 </div>
                 <div class="remark">
-                  买了一点东西
+                  {{ item.remake }}
                 </div>
                 <div class="money-number">
-                  -120
+                  {{ item.type + '' + item.amount }}
                 </div>
-              </a>
+              </div>
             </li>
           </ul>
         </div>
@@ -56,9 +56,49 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Detail',
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component({
+  computed: {
+    recordList() {
+      return this.$store.state.recordList.filter((item: any) => {
+        let nowDate = new Date();
+        let recordDate = new Date(item.createTime);
+        return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
+      });
+    },
+    innumber() {
+      let num = 0;
+      (this as any).recordList.forEach((item: any) => {
+        if (item.type === '+') {
+          num += item.amount;
+        }
+      });
+      if (num.toString().indexOf('.') !== -1) {
+        return num.toString();
+      } else {
+        return num + '.00';
+      }
+    },
+    outnumber() {
+      let num = 0;
+      (this as any).recordList.forEach((item: any) => {
+        if (item.type === '-') {
+          num += item.amount;
+        }
+      });
+      if (num.toString().indexOf('.') !== -1) {
+        return num.toString();
+      } else {
+        return num + '.00';
+      }
+    }
+  }
+})
+export default class Detail extends Vue {
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -152,14 +192,15 @@ export default {
     align-items: center;
 
     li {
-      a {
+      > div {
         display: flex;
         align-items: center;
         height: 48px;
         width: 96vw;
         margin-top: 10px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
+        //border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        //border-radius: 10px;
 
         .icon-container {
           width: 36px;

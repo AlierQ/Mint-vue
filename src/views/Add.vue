@@ -90,6 +90,7 @@ export default class Add extends Vue {
     // 解决方式:做一下深拷贝深拷贝
     const recordClone = clone(this.record);
     this.$store.commit('CREATE_RECORD', recordClone);
+    this.$router.replace('/')
   }
 
   @Watch('type')
@@ -97,6 +98,9 @@ export default class Add extends Vue {
     this.record.type = newValue;
   }
 
+  beforeDestroy() {
+    this.$store.commit('SAVE_ALL');
+  }
 }
 </script>
 
