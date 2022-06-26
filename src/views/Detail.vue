@@ -58,6 +58,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import toFixed from '@/lib/toFixed';
 
 @Component({
   computed: {
@@ -75,11 +76,7 @@ import {Component} from 'vue-property-decorator';
           num += item.amount;
         }
       });
-      if (num.toString().indexOf('.') !== -1) {
-        return num.toString();
-      } else {
-        return num + '.00';
-      }
+      return toFixed(num, 2);
     },
     outnumber() {
       let num = 0;
@@ -88,11 +85,7 @@ import {Component} from 'vue-property-decorator';
           num += item.amount;
         }
       });
-      if (num.toString().indexOf('.') !== -1) {
-        return num.toString();
-      } else {
-        return num + '.00';
-      }
+      return toFixed(num, 2);
     }
   }
 })
