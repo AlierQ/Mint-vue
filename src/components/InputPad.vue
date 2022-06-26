@@ -103,6 +103,8 @@ export default class InputPad extends Vue {
     if(this.output!=='0'&&this.output!=='0.'){
       this.$emit('get:inputPadData',this.output,this.remakeData)
       this.$emit('submit')
+    }else{
+      alert('请入金额！')
     }
   }
 

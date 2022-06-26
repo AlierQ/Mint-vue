@@ -67,6 +67,7 @@ import clone from '@/lib/clone';
 export default class Add extends Vue {
   type = '-'; // '-' 表示支出 '+' 表示收入
   record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
+  defaultRemake = '';
 
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
@@ -74,23 +75,32 @@ export default class Add extends Vue {
   }
 
   // 获取选择标签的回调
-  getCheckedTag(iconName: string, id: string) {
+  getCheckedTag(iconName: string, id: string,notes:string) {
     this.record.tag = iconName;
+    this.defaultRemake = notes;
   }
 
   // 获取输入面板内容的
   getInputPadData(output: string, remake: string) {
     this.record.amount = Number(output);
-    this.record.remake = remake;
+    if(remake===''){
+      this.record.remake=this.defaultRemake;
+    }else{
+      this.record.remake = remake;
+    }
   }
 
   // 保存一条记录到所有记录中
   saveRecord() {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
-    const recordClone = clone(this.record);
-    this.$store.commit('CREATE_RECORD', recordClone);
-    this.$router.replace('/')
+    if (this.record.tag !== '') {
+      const recordClone = clone(this.record);
+      this.$store.commit('CREATE_RECORD', recordClone);
+      this.$router.replace('/');
+    }else{
+      alert('未选中标签！');
+    }
   }
 
   @Watch('type')
