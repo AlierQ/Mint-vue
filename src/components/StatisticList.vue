@@ -35,6 +35,7 @@ export default class StatisticList extends Vue{
     }
     console.log(hash);
     return hash
+
   }
 }
 </script>

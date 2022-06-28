@@ -78,7 +78,8 @@ export default class Detail extends Vue {
     const recordList = this.recordList;
     let hash: { [key: string]: { title: string, items:RecordItem[]} } = {};
     for (let i = recordList.length-1; i >=0; i--) {
-      const [date] = JSON.parse(JSON.stringify(recordList[i].createTime)).split('T');
+      const dateString = new Date(recordList[i].createTime).toISOString();
+      const [date] = dateString.split('T');
       hash[date] = hash[date] || {title: date, items: []};
       hash[date].items.push(recordList[i]);
     }
