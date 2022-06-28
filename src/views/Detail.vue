@@ -30,22 +30,25 @@
         </div>
       </template>
       <template slot="content">
-        <div class="record">
-          <ul>
-            <li v-for="(item,index) in recordList" :key="index">
-              <div>
-                <div class="icon-container">
-                  <Icon :name="item.tag"></Icon>
+        <div class="recordContainer">
+          <div v-for="(group,index) in dayDate" :key="index">
+            <div class="recordDate">{{group.title}}</div>
+            <ul>
+              <li v-for="(item,index) in group.items" :key="index">
+                <div class="record">
+                  <div class="icon-container">
+                    <Icon :name="item.tag"></Icon>
+                  </div>
+                  <div class="remark">
+                    {{ item.remake }}
+                  </div>
+                  <div class="money-number">
+                    {{ item.type + '' + item.amount }}
+                  </div>
                 </div>
-                <div class="remark">
-                  {{ item.remake }}
-                </div>
-                <div class="money-number">
-                  {{ item.type + '' + item.amount }}
-                </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </template>
       <template slot="bottom">
@@ -69,6 +72,18 @@ export default class Detail extends Vue {
       let recordDate = new Date(item.createTime);
       return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
     });
+  }
+
+  get dayDate() {
+    const recordList = this.recordList;
+    let hash: { [key: string]: { title: string, items:RecordItem[]} } = {};
+    for (let i = recordList.length-1; i >=0; i--) {
+      const [date] = JSON.parse(JSON.stringify(recordList[i].createTime)).split('T');
+      hash[date] = hash[date] || {title: date, items: []};
+      hash[date].items.push(recordList[i]);
+    }
+    console.log(hash);
+    return hash;
   }
 
   get innumber() {
@@ -195,19 +210,31 @@ export default class Detail extends Vue {
   }
 }
 
-.record {
+.recordContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .recordDate {
+    //border: 1px solid red;
+    margin-top: 10px;
+    padding-left: 10px;
+    color: #666;
+    width: 96vw;
+  }
+
   ul {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     li {
-      > div {
+      > .record {
         display: flex;
         align-items: center;
         height: 54px;
         width: 96vw;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
 
         .icon-container {
           width: 36px;

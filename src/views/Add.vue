@@ -97,7 +97,7 @@ export default class Add extends Vue {
     // 解决方式:做一下深拷贝深拷贝
     if (this.record.tag !== '') {
       this.$store.commit('CREATE_RECORD', this.record);
-      this.$router.replace('/');
+      this.$router.push('/');
     } else {
       alert('未选中标签！');
     }

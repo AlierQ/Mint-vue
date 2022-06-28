@@ -4,31 +4,39 @@
       <!-- 已有基础样式元素，添加样式的方式，更推荐后一种，多个class属性会合并 -->
       <div
         :class="type === '-' ? 'out selected' : 'out'"
-        @click="type='-'">支出
+        @click="selectType('-')">支出
       </div>
       <!-- type === '+'为false默认会被忽略 -->
       <div
         class="in"
         :class="type === '+' && 'selected'"
-        @click="type='+'">收入
+        @click="selectType('+')">收入
       </div>
     </div>
     <div class="bottom">
-      <div @click="selectedTime='week'" :class="selectedTime ==='week' && 'selected'">周</div>
-      <div @click="selectedTime='month'" :class="selectedTime ==='month' && 'selected'">月</div>
-      <div @click="selectedTime='year'" :class="selectedTime ==='year' && 'selected'">年</div>
+      <div @click="selectedInterval('week')" :class="interval ==='week' && 'selected'">周</div>
+      <div @click="selectedInterval('month')" :class="interval ==='month' && 'selected'">月</div>
+      <div @click="selectedInterval('year')" :class="interval ==='year' && 'selected'">年</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class StatisticTop extends Vue {
-  type = '-';
-  selectedTime = 'week';
+  @Prop(String) type: string | undefined;
+  @Prop(String) interval: string | undefined;
+
+  selectType(value:string){
+    this.$emit('update:type',value);
+  }
+
+  selectedInterval(value:string){
+    this.$emit('update:time',value);
+  }
 }
 </script>
 
@@ -39,6 +47,7 @@ export default class StatisticTop extends Vue {
   display: flex;
   flex-direction: column;
   background: $color-basic;
+
   .top {
     height: 80px;
     display: flex;
@@ -46,6 +55,7 @@ export default class StatisticTop extends Vue {
     align-items: flex-end;
     padding-bottom: 10px;
     margin-bottom: 10px;
+
     .in,
     .out {
       font-size: 22px;
@@ -70,24 +80,29 @@ export default class StatisticTop extends Vue {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+
     div {
       border: 1px solid #1C1D1F;
       width: 30%;
       text-align: center;
+
       &.selected {
         background: #1C1D1F;
         color: $color-basic;
       }
     }
-    div:nth-child(1){
+
+    div:nth-child(1) {
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       border-right: 0;
     }
-    div:nth-child(2){
+
+    div:nth-child(2) {
       border-right: 0;
     }
-    div:nth-child(3){
+
+    div:nth-child(3) {
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
     }
