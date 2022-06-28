@@ -32,7 +32,7 @@
       <template slot="content">
         <div class="recordContainer">
           <div v-for="(group,index) in dayDate" :key="index">
-            <div class="recordDate">{{group.title}}</div>
+            <div class="recordDate">{{ group.title }}</div>
             <ul>
               <li v-for="(item,index) in group.items" :key="index">
                 <div class="record">
@@ -62,6 +62,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import toFixed from '@/lib/toFixed';
+import getDateAndWeek from '@/lib/getDateAndWeek';
 
 @Component
 export default class Detail extends Vue {
@@ -76,11 +77,10 @@ export default class Detail extends Vue {
 
   get dayDate() {
     const recordList = this.recordList;
-    let hash: { [key: string]: { title: string, items:RecordItem[]} } = {};
-    for (let i = recordList.length-1; i >=0; i--) {
-      const dateString = new Date(recordList[i].createTime).toISOString();
-      const [date] = dateString.split('T');
-      hash[date] = hash[date] || {title: date, items: []};
+    let hash: { [key: string]: { title: string, items: RecordItem[] } } = {};
+    for (let i = recordList.length - 1; i >= 0; i--) {
+      const [date] = recordList[i].createTime.split('T');
+      hash[date] = hash[date] || {title: getDateAndWeek(recordList[i].createTime), items: []};
       hash[date].items.push(recordList[i]);
     }
     console.log(hash);

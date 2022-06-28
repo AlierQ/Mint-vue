@@ -120,7 +120,7 @@ export default new Vuex.Store({
     },
     CREATE_RECORD(state, value) {
       const recordClone = clone(value);
-      recordClone.createTime = new Date();
+      recordClone.createTime = new Date().toISOString();
       state.recordList.push(recordClone);
     },
     SAVE_ALL(state) {

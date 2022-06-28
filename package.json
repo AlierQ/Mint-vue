@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.23.1",
+    "dayjs": "^1.11.3",
     "lint-staged": "9.5.0",
     "register-service-worker": "1.7.2",
     "vue": "2.6.14",
