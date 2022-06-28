@@ -48,20 +48,20 @@ import LabelAdd from '@/components/LabelAdd.vue';
     LabelAdd,
     Layout,
     LabelEditList
-  },
-  computed: {
-    // 计算属性获取Vuex的属性,能够自动检测到数据改变
-    outTagsData() {
-      return this.$store.state.outTagsData;
-    },
-    inTagsData() {
-      return this.$store.state.inTagsData;
-    }
   }
 })
 export default class Label extends Vue {
   type = '-';
   showAddPage = false;
+
+  // 计算属性获取Vuex的属性,能够自动检测到数据改变
+  get outTagsData() {
+    return this.$store.state.outTagsData;
+  }
+
+  get inTagsData() {
+    return this.$store.state.inTagsData;
+  }
 
   select(type: string) {
     this.type = type;

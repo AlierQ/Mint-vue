@@ -44,17 +44,15 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
-@Component({
-  computed:{
-    iconNameList() {
-      return this.$store.state.iconNameList;
-    }
-  }
-})
+@Component
 export default class LabelAdd extends Vue {
   checked = 'shopping';
   notes = '';
   @Prop(String) type: string | undefined;
+
+  get iconNameList() {
+    return this.$store.state.iconNameList;
+  }
 
   back() {
     this.$emit('closePage');
@@ -63,14 +61,14 @@ export default class LabelAdd extends Vue {
   done() {
     if (this.notes !== '') {
       console.log(this.notes.length);
-      if(this.notes.length<=4){
+      if (this.notes.length <= 4) {
         if (this.type === '-') {
           this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
         } else {
           this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
         }
         this.back();
-      }else{
+      } else {
         alert('类别名太长!');
       }
     } else {

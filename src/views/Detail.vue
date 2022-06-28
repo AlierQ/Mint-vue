@@ -60,48 +60,51 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import toFixed from '@/lib/toFixed';
 
-@Component({
-  computed: {
-    recordList() {
-      return this.$store.state.recordList.filter((item: any) => {
-        let nowDate = new Date();
-        let recordDate = new Date(item.createTime);
-        return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
-      });
-    },
-    innumber() {
-      let num = 0;
-      (this as any).recordList.forEach((item: any) => {
-        if (item.type === '+') {
-          num += item.amount;
-        }
-      });
-      return toFixed(num, 2);
-    },
-    outnumber() {
-      let num = 0;
-      (this as any).recordList.forEach((item: any) => {
-        if (item.type === '-') {
-          num += item.amount;
-        }
-      });
-      return toFixed(num, 2);
-    },
-    year() {
-      const date = new Date();
-      return date.getFullYear();
-    },
-    month() {
-      const month = new Date().getMonth() + 1;
-      if (month < 10) {
-        return '0' + month;
-      } else {
-        return month;
+@Component
+export default class Detail extends Vue {
+
+  get recordList() {
+    return this.$store.state.recordList.filter((item: any) => {
+      let nowDate = new Date();
+      let recordDate = new Date(item.createTime);
+      return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
+    });
+  }
+
+  get innumber() {
+    let num = 0;
+    this.recordList.forEach((item: any) => {
+      if (item.type === '+') {
+        num += item.amount;
       }
+    });
+    return toFixed(num, 2);
+  }
+
+  get outnumber() {
+    let num = 0;
+    this.recordList.forEach((item: any) => {
+      if (item.type === '-') {
+        num += item.amount;
+      }
+    });
+    return toFixed(num, 2);
+  }
+
+  get year() {
+    const date = new Date();
+    return date.getFullYear();
+  }
+
+  get month() {
+    const month = new Date().getMonth() + 1;
+    if (month < 10) {
+      return '0' + month;
+    } else {
+      return month;
     }
   }
-})
-export default class Detail extends Vue {
+
   beforeDestroy() {
     this.$store.commit('SAVE_ALL');
   }
@@ -205,6 +208,7 @@ export default class Detail extends Vue {
         height: 54px;
         width: 96vw;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
         .icon-container {
           width: 36px;
           height: 36px;

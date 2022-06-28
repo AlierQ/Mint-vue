@@ -51,17 +51,6 @@ import clone from '@/lib/clone';
   components: {
     LabelList,
     InputPad,
-  },
-  computed: {
-    outTagsData() {
-      return this.$store.state.outTagsData;
-    },
-    inTagsData() {
-      return this.$store.state.inTagsData;
-    },
-    recordList() {
-      return this.$store.state.recordList;
-    }
   }
 })
 export default class Add extends Vue {
@@ -69,13 +58,25 @@ export default class Add extends Vue {
   record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
   defaultRemake = '';
 
+  get outTagsData() {
+    return this.$store.state.outTagsData;
+  }
+
+  get inTagsData() {
+    return this.$store.state.inTagsData;
+  }
+
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
   selectType(type: string) {
     if (type === '-' || type === '+') this.type = type;
     else throw new Error('type is unknown');
   }
 
   // 获取选择标签的回调
-  getCheckedTag(iconName: string, id: string,notes:string) {
+  getCheckedTag(iconName: string, id: string, notes: string) {
     this.record.tag = iconName;
     this.defaultRemake = notes;
   }
@@ -83,9 +84,9 @@ export default class Add extends Vue {
   // 获取输入面板内容的
   getInputPadData(output: string, remake: string) {
     this.record.amount = Number(output);
-    if(remake===''){
-      this.record.remake=this.defaultRemake;
-    }else{
+    if (remake === '') {
+      this.record.remake = this.defaultRemake;
+    } else {
       this.record.remake = remake;
     }
   }
@@ -95,10 +96,9 @@ export default class Add extends Vue {
     // 这里push之后再添加会改变前面的值
     // 解决方式:做一下深拷贝深拷贝
     if (this.record.tag !== '') {
-      const recordClone = clone(this.record);
-      this.$store.commit('CREATE_RECORD', recordClone);
+      this.$store.commit('CREATE_RECORD', this.record);
       this.$router.replace('/');
-    }else{
+    } else {
       alert('未选中标签！');
     }
   }

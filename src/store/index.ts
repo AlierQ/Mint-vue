@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import LabelModel from "@/models/labelModel";
 import RecordModel from "@/models/recordModel";
 import createId from "@/lib/createId";
+import clone from "@/lib/clone";
 
 Vue.use(Vuex);
 
@@ -118,8 +119,9 @@ export default new Vuex.Store({
       }
     },
     CREATE_RECORD(state, value) {
-      value.createTime = new Date();
-      state.recordList.push(value);
+      const recordClone = clone(value);
+      recordClone.createTime = new Date();
+      state.recordList.push(recordClone);
     },
     SAVE_ALL(state) {
       LabelModel.save("outTags", state.outTagsData);
