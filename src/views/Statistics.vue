@@ -25,10 +25,11 @@ import StatisticTop from '@/components/StatisticTop.vue';
 import StatisticList from '@/components/StatisticList.vue';
 import dayjs from 'dayjs';
 
-//
-// const date = dayjs()
-// console.log(date);
-// console.log(date.add(1,'day'));
+
+const date = dayjs()
+console.log(date);
+console.log(date.format('MM月DD日'));
+console.log(date.add(1,'day'));
 
 @Component({
   components: {

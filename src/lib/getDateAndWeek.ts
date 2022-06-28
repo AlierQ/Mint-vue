@@ -2,9 +2,7 @@ import dayjs from "dayjs";
 
 function getDateAndWeek(dateString: string) {
   const dayApi = dayjs(dateString);
-  const month =
-    dayApi.month() + 1 < 10 ? "0" + (dayApi.month() + 1) : dayApi.month() + 1;
-  const date = dayApi.date() < 10 ? "0" + dayApi.date() : dayApi.date();
+  const string = dayApi.format("MM月DD日");
   const weekList = [
     "星期日",
     "星期一",
@@ -15,7 +13,7 @@ function getDateAndWeek(dateString: string) {
     "星期六",
   ];
   const week = weekList[dayApi.day()];
-  return month + "月" + date + "日 " + week;
+  return string + " " + week;
 }
 
 export default getDateAndWeek;
