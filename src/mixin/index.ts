@@ -37,5 +37,13 @@ export const mixin = {
       }
       return array;
     },
+    // 计算每一个分组的金额总和
+    calculateSum(array: any) {
+      array.map((group: any) => {
+        group.sum = group.items.reduce((sum: number, item: RecordItem) => {
+          return sum + item.amount;
+        }, 0);
+      });
+    },
   },
 };

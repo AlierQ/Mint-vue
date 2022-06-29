@@ -1,7 +1,10 @@
 <template>
   <div class="recordContainer">
     <div v-for="(group,index) in groupList" :key="index">
-      <div class="recordDate">{{ group.title }}</div>
+      <div class="recordDate">
+        <div>{{ group.title }}</div>
+        <div>共计：{{ toFixed2(group.sum) }}</div>
+      </div>
       <ul>
         <li v-for="(item,index) in group.items" :key="index">
           <div class="record">
@@ -24,12 +27,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import toFixed from '@/lib/toFixed';
 
 @Component
 export default class StatisticList extends Vue {
   @Prop(String) type: string | undefined;
   @Prop(String) interval: string | undefined;
   @Prop() groupList: any | undefined;
+
+  toFixed2(value: number) {
+    return toFixed(value, 2);
+  }
 }
 </script>
 
@@ -42,11 +50,12 @@ export default class StatisticList extends Vue {
   align-items: center;
 
   .recordDate {
-    //border: 1px solid red;
-    margin-top: 10px;
-    padding-left: 10px;
+    padding: 0 10px;
     color: #666;
     width: 96vw;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
   }
 
   ul {

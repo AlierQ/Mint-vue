@@ -63,8 +63,8 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import toFixed from '@/lib/toFixed';
 import getDateAndWeek from '@/lib/getDateAndWeek';
-import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import {mixin} from '@/mixin';
 
 @Component
 export default class Detail extends Vue {
@@ -80,21 +80,8 @@ export default class Detail extends Vue {
   get dayDate() {
     // sort会操作原数组，这里克隆过一个新的数组进行操作
     const recordList = clone(this.recordList);
-    // 排序
-    recordList.sort((a: RecordItem, b: RecordItem) => {
-      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
-    });
-    
-    let array = [{title: getDateAndWeek(recordList[0].createTime), items: [recordList[0]]}];
-    for (let i = 1; i < recordList.length; i++) {
-      const last = array.length - 1;
-      if (getDateAndWeek(recordList[i].createTime) === array[last].title){
-        array[last].items.push(recordList[i])
-      }else{
-        array.push({title: getDateAndWeek(recordList[i].createTime),items: [recordList[i]]})
-      }
-    }
-    return array;
+    mixin.methods.sortDateMax(recordList)
+    return mixin.methods.recordGroup(getDateAndWeek,recordList)
   }
 
   get innumber() {
@@ -227,8 +214,7 @@ export default class Detail extends Vue {
   align-items: center;
 
   .recordDate {
-    //border: 1px solid red;
-    margin-top: 10px;
+    margin-top: 5px;
     padding-left: 10px;
     color: #666;
     width: 96vw;

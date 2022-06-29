@@ -24,7 +24,6 @@ import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import StatisticTop from '@/components/StatisticTop.vue';
 import StatisticList from '@/components/StatisticList.vue';
-import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import getWeekOfYear from '@/lib/getWeekOfYear';
 import getMonthOfYear from '@/lib/getMonthOfYear';
@@ -69,6 +68,7 @@ export default class Statistics extends Vue {
     mixin.methods.sortDateMax(recordList);
     let array = mixin.methods.recordGroup(getWeekOfYear,recordList);
     mixin.methods.sortAmountMax(array);
+    mixin.methods.calculateSum(array);
     return array;
   }
 
@@ -77,6 +77,7 @@ export default class Statistics extends Vue {
     mixin.methods.sortDateMax(recordList);
     let array = mixin.methods.recordGroup(getMonthOfYear,recordList);
     mixin.methods.sortAmountMax(array);
+    mixin.methods.calculateSum(array);
     return array;
   }
   get groupYear() {
@@ -84,6 +85,7 @@ export default class Statistics extends Vue {
     mixin.methods.sortDateMax(recordList);
     let array = mixin.methods.recordGroup(getYear,recordList);
     mixin.methods.sortAmountMax(array);
+    mixin.methods.calculateSum(array);
     return array;
   }
 
