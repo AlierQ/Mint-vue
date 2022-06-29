@@ -45,5 +45,24 @@ export const mixin = {
         }, 0);
       });
     },
+    // 分别计算收入和支出的总和
+    calculateInSumAndOutSum(array: any) {
+      array.map((group: any) => {
+        group.inSum = group.items.reduce((sum: number, item: RecordItem) => {
+          if (item.type === "+") {
+            return sum + item.amount;
+          } else {
+            return sum;
+          }
+        }, 0);
+        group.outSum = group.items.reduce((sum: number, item: RecordItem) => {
+          if (item.type === "-") {
+            return sum + item.amount;
+          } else {
+            return sum;
+          }
+        }, 0);
+      });
+    },
   },
 };

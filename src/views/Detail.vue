@@ -32,7 +32,13 @@
       <template slot="content">
         <div class="recordContainer">
           <div v-for="(group,index) in dayDate" :key="index">
-            <div class="recordDate">{{ group.title }}</div>
+            <div class="recordDate">
+              <div>{{ group.title }}</div>
+              <div>
+                {{ group.inSum !== 0 ? '收入：' + toFixed2(group.inSum) : '' }}
+                {{ group.outSum !== 0 ? '&nbsp;&nbsp;支出：' + toFixed2(group.outSum) : '' }}
+              </div>
+            </div>
             <ul>
               <li v-for="(item,index) in group.items" :key="index">
                 <div class="record">
@@ -80,8 +86,10 @@ export default class Detail extends Vue {
   get dayDate() {
     // sort会操作原数组，这里克隆过一个新的数组进行操作
     const recordList = clone(this.recordList);
-    mixin.methods.sortDateMax(recordList)
-    return mixin.methods.recordGroup(getDateAndWeek,recordList)
+    mixin.methods.sortDateMax(recordList);
+    let array = mixin.methods.recordGroup(getDateAndWeek, recordList);
+    mixin.methods.calculateInSumAndOutSum(array);
+    return array;
   }
 
   get innumber() {
@@ -116,6 +124,10 @@ export default class Detail extends Vue {
     } else {
       return month;
     }
+  }
+
+  toFixed2(value: number) {
+    return toFixed(value, 2);
   }
 
   beforeDestroy() {
@@ -214,10 +226,13 @@ export default class Detail extends Vue {
   align-items: center;
 
   .recordDate {
-    margin-top: 5px;
-    padding-left: 10px;
+    padding: 0 10px;
     color: #666;
     width: 96vw;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 15px;
   }
 
   ul {
