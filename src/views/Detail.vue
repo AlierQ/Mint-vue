@@ -69,7 +69,7 @@ import clone from '@/lib/clone';
 @Component
 export default class Detail extends Vue {
 
-  get recordList():RecordItem[] {
+  get recordList(): RecordItem[] {
     return this.$store.state.recordList.filter((item: any) => {
       let nowDate = new Date();
       let recordDate = new Date(item.createTime);
@@ -82,17 +82,19 @@ export default class Detail extends Vue {
     const recordList = clone(this.recordList);
     // 排序
     recordList.sort((a: RecordItem, b: RecordItem) => {
-      return dayjs(a.createTime).valueOf() - dayjs(b.createTime).valueOf();
+      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
     });
-    console.log(recordList);
-    let hash: { [key: string]: { title: string, items: RecordItem[] } } = {};
-    for (let i = recordList.length - 1; i >= 0; i--) {
-      const [date] = recordList[i].createTime.split('T');
-      hash[date] = hash[date] || {title: getDateAndWeek(recordList[i].createTime), items: []};
-      hash[date].items.push(recordList[i]);
+    
+    let array = [{title: getDateAndWeek(recordList[0].createTime), items: [recordList[0]]}];
+    for (let i = 1; i < recordList.length; i++) {
+      const last = array.length - 1;
+      if (getDateAndWeek(recordList[i].createTime) === array[last].title){
+        array[last].items.push(recordList[i])
+      }else{
+        array.push({title: getDateAndWeek(recordList[i].createTime),items: [recordList[i]]})
+      }
     }
-    console.log(hash);
-    return hash;
+    return array;
   }
 
   get innumber() {
