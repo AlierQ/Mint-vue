@@ -63,11 +63,13 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import toFixed from '@/lib/toFixed';
 import getDateAndWeek from '@/lib/getDateAndWeek';
+import dayjs from 'dayjs';
+import clone from '@/lib/clone';
 
 @Component
 export default class Detail extends Vue {
 
-  get recordList() {
+  get recordList():RecordItem[] {
     return this.$store.state.recordList.filter((item: any) => {
       let nowDate = new Date();
       let recordDate = new Date(item.createTime);
@@ -76,7 +78,13 @@ export default class Detail extends Vue {
   }
 
   get dayDate() {
-    const recordList = this.recordList;
+    // sort会操作原数组，这里克隆过一个新的数组进行操作
+    const recordList = clone(this.recordList);
+    // 排序
+    recordList.sort((a: RecordItem, b: RecordItem) => {
+      return dayjs(a.createTime).valueOf() - dayjs(b.createTime).valueOf();
+    });
+    console.log(recordList);
     let hash: { [key: string]: { title: string, items: RecordItem[] } } = {};
     for (let i = recordList.length - 1; i >= 0; i--) {
       const [date] = recordList[i].createTime.split('T');

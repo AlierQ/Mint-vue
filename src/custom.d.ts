@@ -11,5 +11,5 @@ type RecordItem = {
   tag: string;
   remake: string;
   amount: number;
-  createTime?: Date; // ? 表示可以不存在
+  createTime: string; // ? 表示可以不存在
 };
