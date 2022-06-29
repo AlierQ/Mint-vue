@@ -29,6 +29,7 @@ import clone from '@/lib/clone';
 import getWeekOfYear from '@/lib/getWeekOfYear';
 import getMonthOfYear from '@/lib/getMonthOfYear';
 import getYear from '@/lib/getYear';
+import {mixin} from '@/mixin';
 
 @Component({
   components: {
@@ -65,73 +66,24 @@ export default class Statistics extends Vue {
 
   get groupWeek() {
     const recordList = clone(this.recordList);
-    // 排序
-    recordList.sort((a: RecordItem, b: RecordItem) => {
-      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
-    });
-
-    let array = [{title: getWeekOfYear(recordList[0].createTime), items: [recordList[0]]}];
-    for (let i = 1; i < recordList.length; i++) {
-      const last = array.length - 1;
-      if (getWeekOfYear(recordList[i].createTime) === array[last].title) {
-        array[last].items.push(recordList[i]);
-      } else {
-        array.push({title: getWeekOfYear(recordList[i].createTime), items: [recordList[i]]});
-      }
-    }
-    for (let i = 0; i < array.length; i++) {
-      array[i].items.sort((a, b) => {
-        return b.amount - a.amount;
-      });
-    }
-
+    mixin.methods.sortDateMax(recordList);
+    let array = mixin.methods.recordGroup(getWeekOfYear,recordList);
+    mixin.methods.sortAmountMax(array);
     return array;
   }
 
   get groupMonth() {
     const recordList = clone(this.recordList);
-    // 排序
-    recordList.sort((a: RecordItem, b: RecordItem) => {
-      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
-    });
-
-    let array = [{title: getMonthOfYear(recordList[0].createTime), items: [recordList[0]]}];
-    for (let i = 1; i < recordList.length; i++) {
-      const last = array.length - 1;
-      if (getMonthOfYear(recordList[i].createTime) === array[last].title) {
-        array[last].items.push(recordList[i]);
-      } else {
-        array.push({title: getMonthOfYear(recordList[i].createTime), items: [recordList[i]]});
-      }
-    }
-    for (let i = 0; i < array.length; i++) {
-      array[i].items.sort((a, b) => {
-        return b.amount - a.amount;
-      });
-    }
+    mixin.methods.sortDateMax(recordList);
+    let array = mixin.methods.recordGroup(getMonthOfYear,recordList);
+    mixin.methods.sortAmountMax(array);
     return array;
   }
   get groupYear() {
     const recordList = clone(this.recordList);
-    // 排序
-    recordList.sort((a: RecordItem, b: RecordItem) => {
-      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
-    });
-
-    let array = [{title: getYear(recordList[0].createTime), items: [recordList[0]]}];
-    for (let i = 1; i < recordList.length; i++) {
-      const last = array.length - 1;
-      if (getYear(recordList[i].createTime) === array[last].title) {
-        array[last].items.push(recordList[i]);
-      } else {
-        array.push({title: getYear(recordList[i].createTime), items: [recordList[i]]});
-      }
-    }
-    for (let i = 0; i < array.length; i++) {
-      array[i].items.sort((a, b) => {
-        return b.amount - a.amount;
-      });
-    }
+    mixin.methods.sortDateMax(recordList);
+    let array = mixin.methods.recordGroup(getYear,recordList);
+    mixin.methods.sortAmountMax(array);
     return array;
   }
 
