@@ -76,16 +76,23 @@ import {mixin} from '@/mixin';
 export default class Detail extends Vue {
 
   get recordList(): RecordItem[] {
-    return this.$store.state.recordList.filter((item: any) => {
-      let nowDate = new Date();
-      let recordDate = new Date(item.createTime);
-      return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
-    });
+    if (this.$store.state.recordList.length === 0) {
+      return [];
+    } else {
+      return this.$store.state.recordList.filter((item: RecordItem) => {
+        let nowDate = new Date();
+        let recordDate = new Date(item.createTime);
+        return recordDate.getFullYear() === nowDate.getFullYear() && recordDate.getMonth() === nowDate.getMonth();
+      });
+    }
   }
 
   get dayDate() {
     // sort会操作原数组，这里克隆过一个新的数组进行操作
     const recordList = clone(this.recordList);
+    if(recordList.length === 0){
+      return [];
+    }
     mixin.methods.sortDateMax(recordList);
     let array = mixin.methods.recordGroup(getDateAndWeek, recordList);
     mixin.methods.calculateInSumAndOutSum(array);

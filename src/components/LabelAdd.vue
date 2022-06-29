@@ -60,7 +60,6 @@ export default class LabelAdd extends Vue {
 
   done() {
     if (this.notes !== '') {
-      console.log(this.notes.length);
       if (this.notes.length <= 4) {
         if (this.type === '-') {
           this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);

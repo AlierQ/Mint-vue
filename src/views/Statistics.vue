@@ -65,8 +65,11 @@ export default class Statistics extends Vue {
 
   get groupWeek() {
     const recordList = clone(this.recordList);
+    if (recordList.length === 0) {
+      return [];
+    }
     mixin.methods.sortDateMax(recordList);
-    let array = mixin.methods.recordGroup(getWeekOfYear,recordList);
+    let array = mixin.methods.recordGroup(getWeekOfYear, recordList);
     mixin.methods.sortAmountMax(array);
     mixin.methods.calculateSum(array);
     return array;
@@ -74,16 +77,23 @@ export default class Statistics extends Vue {
 
   get groupMonth() {
     const recordList = clone(this.recordList);
+    if (recordList.length === 0) {
+      return [];
+    }
     mixin.methods.sortDateMax(recordList);
-    let array = mixin.methods.recordGroup(getMonthOfYear,recordList);
+    let array = mixin.methods.recordGroup(getMonthOfYear, recordList);
     mixin.methods.sortAmountMax(array);
     mixin.methods.calculateSum(array);
     return array;
   }
+
   get groupYear() {
     const recordList = clone(this.recordList);
+    if (recordList.length === 0) {
+      return [];
+    }
     mixin.methods.sortDateMax(recordList);
-    let array = mixin.methods.recordGroup(getYear,recordList);
+    let array = mixin.methods.recordGroup(getYear, recordList);
     mixin.methods.sortAmountMax(array);
     mixin.methods.calculateSum(array);
     return array;
@@ -95,10 +105,11 @@ export default class Statistics extends Vue {
       this.groupList = this.groupWeek;
     } else if (newValue === 'month') {
       this.groupList = this.groupMonth;
-    }else if (newValue === 'year') {
+    } else if (newValue === 'year') {
       this.groupList = this.groupYear;
     }
   }
+
   @Watch('type')
   onTypeChange() {
     this.onIntervalChange(this.interval);

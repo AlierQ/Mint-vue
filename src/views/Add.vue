@@ -40,10 +40,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import InputPad from '@/components/InputPad.vue';
 import LabelList from '@/components/LabelList.vue';
-import clone from '@/lib/clone';
 
 // 装饰器
 @Component({
@@ -55,7 +54,7 @@ import clone from '@/lib/clone';
 })
 export default class Add extends Vue {
   type = '-'; // '-' 表示支出 '+' 表示收入
-  record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0};
+  record: RecordItem = {type: this.type, tag: '', remake: '', amount: 0, createTime: ''};
   defaultRemake = '';
 
   get outTagsData() {

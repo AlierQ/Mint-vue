@@ -10,28 +10,31 @@
 
 <script lang="ts">
 export default {
-  name: "NotFound",
+  name: 'NotFound',
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-.page{
+
+.page {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  >.icon{
+
+  > .icon {
     width: 240px;
     height: 240px;
     fill: $color-basic;
   }
-  >.toDetail{
+
+  > .toDetail {
     margin-top: 10px;
     color: $color-basic;
-    text-decoration:underline $color-basic;
+    text-decoration: underline $color-basic;
   }
 }
 </style>

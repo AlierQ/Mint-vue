@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import Layout from '@/components/Layout.vue';
 import LabelEditList from '@/components/LabelEditList.vue';
 import LabelAdd from '@/components/LabelAdd.vue';

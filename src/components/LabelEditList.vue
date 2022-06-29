@@ -31,7 +31,8 @@ export default class LabelEditList extends Vue {
 
   updateNotes(id: any) {
     const newNotes = prompt('请输入新的内容：');
-    this.$store.commit('UPDATE_TAG_NOTES',[id,this.type,newNotes])
+    if(newNotes!==null)
+      this.$store.commit('UPDATE_TAG_NOTES',[id,this.type,newNotes])
   }
 }
 </script>
