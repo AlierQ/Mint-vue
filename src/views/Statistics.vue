@@ -28,6 +28,7 @@ import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import getWeekOfYear from '@/lib/getWeekOfYear';
 import getMonthOfYear from '@/lib/getMonthOfYear';
+import getYear from '@/lib/getYear';
 
 @Component({
   components: {
@@ -110,6 +111,29 @@ export default class Statistics extends Vue {
     }
     return array;
   }
+  get groupYear() {
+    const recordList = clone(this.recordList);
+    // 排序
+    recordList.sort((a: RecordItem, b: RecordItem) => {
+      return dayjs(b.createTime).valueOf() - dayjs(a.createTime).valueOf();
+    });
+
+    let array = [{title: getYear(recordList[0].createTime), items: [recordList[0]]}];
+    for (let i = 1; i < recordList.length; i++) {
+      const last = array.length - 1;
+      if (getYear(recordList[i].createTime) === array[last].title) {
+        array[last].items.push(recordList[i]);
+      } else {
+        array.push({title: getYear(recordList[i].createTime), items: [recordList[i]]});
+      }
+    }
+    for (let i = 0; i < array.length; i++) {
+      array[i].items.sort((a, b) => {
+        return b.amount - a.amount;
+      });
+    }
+    return array;
+  }
 
   @Watch('interval')
   onIntervalChange(newValue: string) {
@@ -117,6 +141,8 @@ export default class Statistics extends Vue {
       this.groupList = this.groupWeek;
     } else if (newValue === 'month') {
       this.groupList = this.groupMonth;
+    }else if (newValue === 'year') {
+      this.groupList = this.groupYear;
     }
   }
   @Watch('type')
