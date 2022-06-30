@@ -70,12 +70,16 @@ export default class LabelList extends Vue {
     margin-top: 40px;
     width: 96vw;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 50px);
-    grid-column-gap: 40px;
+    grid-template-columns: repeat(auto-fill, 70px);
+    grid-column-gap: 20px;
     grid-row-gap: 10px;
     justify-content: center;
 
     li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       > .one-icon {
         border-radius: 50%;
         background: #F5F5F5;
