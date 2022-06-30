@@ -24,3 +24,7 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+if (document.documentElement.clientWidth > 500) {
+  window.alert("请使用手机浏览器访问或者使用PC浏览器开发工具进行移动端预览");
+}
