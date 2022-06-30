@@ -6,11 +6,14 @@
                       :interval="interval"
                       @update:type="updateType"
                       @update:time="updateInterval"></StatisticTop>
+
       </template>
       <template slot="content">
+        <StatisticEcharts :option="option"></StatisticEcharts>
         <StatisticList :type="type"
                        :interval="interval"
                        :groupList="groupList"></StatisticList>
+
       </template>
       <template slot="bottom">
         <Nav></Nav>
@@ -29,9 +32,13 @@ import getWeekOfYear from '@/lib/getWeekOfYear';
 import getMonthOfYear from '@/lib/getMonthOfYear';
 import getYear from '@/lib/getYear';
 import {mixin} from '@/mixin';
+import StatisticEcharts from '@/components/StatisticEcharts.vue';
+import getEchartsX from '@/lib/getEchartsX';
+import getEchartsY from '@/lib/getEchartsY';
 
 @Component({
   components: {
+    StatisticEcharts,
     StatisticList,
     StatisticTop
   }
@@ -41,6 +48,41 @@ export default class Statistics extends Vue {
   type = '-';
   interval = 'week';
   groupList = this.groupWeek;
+  option = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      data: ['支出'],
+      show: false
+    },
+    grid: {
+      top: '10%',
+      left: '4%',
+      right: '6%',
+      bottom: '2%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      data: this.echartsX
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        name: '支出',
+        color:'#5470C6',
+        type: 'line',
+        stack: 'Total',
+        // data: [220, 191, 191, 234, 290, 330, 310]
+        data: this.echartsY
+      }
+    ]
+  };
 
   updateType(value: string) {
     this.type = value;
@@ -65,13 +107,13 @@ export default class Statistics extends Vue {
 
   get groupWeek() {
     const recordList = clone(this.recordList);
-    if (recordList.length === 0) {
+    if (recordList.length === 0)
       return [];
-    }
     mixin.methods.sortDateMax(recordList);
     let array = mixin.methods.recordGroup(getWeekOfYear, recordList);
     mixin.methods.sortAmountMax(array);
     mixin.methods.calculateSum(array);
+
     return array;
   }
 
@@ -99,6 +141,14 @@ export default class Statistics extends Vue {
     return array;
   }
 
+  get echartsX() {
+    return getEchartsX(this.groupList, this.interval);
+  }
+
+  get echartsY() {
+    return getEchartsY(this.groupList, this.interval, this.echartsX as []);
+  }
+
   @Watch('interval')
   onIntervalChange(newValue: string) {
     if (newValue === 'week') {
@@ -108,11 +158,20 @@ export default class Statistics extends Vue {
     } else if (newValue === 'year') {
       this.groupList = this.groupYear;
     }
+    this.option.xAxis.data = this.echartsX;
+    this.option.series[0].data = this.echartsY;
   }
 
   @Watch('type')
-  onTypeChange() {
+  onTypeChange(newValue: string) {
     this.onIntervalChange(this.interval);
+    if (newValue === '-') {
+      this.option.series[0].name = '支出';
+      this.option.series[0].color = '#5470C6';
+    } else if (newValue === '+') {
+      this.option.series[0].name = '收入';
+      this.option.series[0].color = '#91cc75';
+    }
   }
 }
 </script>
