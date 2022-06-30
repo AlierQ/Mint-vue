@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:dev":"cross-env NODE_ENV=development yarn build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.23.1",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.3",
     "lint-staged": "9.5.0",
     "register-service-worker": "1.7.2",
