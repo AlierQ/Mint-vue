@@ -136,10 +136,6 @@ export default class Detail extends Vue {
   toFixed2(value: number) {
     return toFixed(value, 2);
   }
-
-  beforeDestroy() {
-    this.$store.commit('SAVE_ALL');
-  }
 }
 </script>
 

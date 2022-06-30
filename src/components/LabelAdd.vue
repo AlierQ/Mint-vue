@@ -66,6 +66,7 @@ export default class LabelAdd extends Vue {
         } else {
           this.$store.commit('CREATE_TAG', [this.type, {iconName: this.checked, notes: this.notes}]);
         }
+        this.$store.commit('SAVE_ALL');
         this.back();
       } else {
         alert('类别名太长!');

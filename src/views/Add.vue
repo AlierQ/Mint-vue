@@ -97,6 +97,7 @@ export default class Add extends Vue {
     if (this.record.tag !== '') {
       this.$store.commit('CREATE_RECORD', this.record);
       this.$router.push('/');
+      this.$store.commit('SAVE_ALL');
     } else {
       alert('未选中标签！');
     }
@@ -105,10 +106,6 @@ export default class Add extends Vue {
   @Watch('type')
   onTypeChange(newValue: string) {
     this.record.type = newValue;
-  }
-
-  beforeDestroy() {
-    this.$store.commit('SAVE_ALL');
   }
 }
 </script>

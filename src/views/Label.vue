@@ -70,10 +70,6 @@ export default class Label extends Vue {
   closePage() {
     this.showAddPage = false;
   }
-
-  beforeDestroy() {
-    this.$store.commit('SAVE_ALL');
-  }
 }
 </script>
 

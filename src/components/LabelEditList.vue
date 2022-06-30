@@ -27,12 +27,16 @@ export default class LabelEditList extends Vue {
 
   deleteLabel(id: string) {
       this.$store.commit('DELETE_TAG',[id,this.type]);
+      this.$store.commit('SAVE_ALL');
   }
 
   updateNotes(id: any) {
     const newNotes = prompt('请输入新的内容：');
-    if(newNotes!==null)
+    if(newNotes!==null){
       this.$store.commit('UPDATE_TAG_NOTES',[id,this.type,newNotes])
+      this.$store.commit('SAVE_ALL');
+    }
+
   }
 }
 </script>
