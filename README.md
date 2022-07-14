@@ -1,29 +1,27 @@
-# mint
 
-## Project setup
-```
-npm install
-```
+# 🌿Mint 薄荷流水
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Mint 薄荷流水是一款界面美观、功能丰富的本地记账WebApp
 
-### Compiles and minifies for production
-```
-npm run build
-```
+基于 Vue2 + VueRouter + Vuex + TypeScript 开发的一款单页面应用，并使用webpack进行项目构建
 
-### Run your unit tests
+制作这个应用的初衷是想将自己对于 Vue 的学习实践一下，该应用从界面设计到开发均有本人独立制作完成
+
+应用界面UI设计使用 Figma 进行制作 [传送门](https://www.figma.com/file/0Sq4AXAqFWDlxJUYmK44XN/Mint)
+
+项目预览地址 [传送门](https://alierq.github.io/Mint-vue-pages/)  PS:该应用制作的是基于移动端的，PC端请在开发者模式中使用移动设备预览
+
+## 运行项目
 ```
-npm run test:unit
+yarn server
 ```
 
-### Lints and fixes files
+## 构建项目
+开发构建
 ```
-npm run lint
+yarn build:dev
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+生产构建
+```
+yarn build
+```
