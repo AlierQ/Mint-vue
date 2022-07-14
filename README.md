@@ -5,7 +5,7 @@ Mint 薄荷流水是一款界面美观、功能丰富的本地记账WebApp
 
 基于 Vue2 + VueRouter + Vuex + TypeScript 开发的一款单页面应用，并使用webpack进行项目构建
 
-制作这个应用的初衷是想将自己对于 Vue 的学习实践一下，该应用从界面设计到开发均有本人独立制作完成
+制作这个应用的初衷是想将自己对于 Vue 的学习实践一下，该应用从界面设计到开发均由本人独立制作完成
 
 应用界面UI设计使用 Figma 进行制作 [传送门](https://www.figma.com/file/0Sq4AXAqFWDlxJUYmK44XN/Mint)
 
