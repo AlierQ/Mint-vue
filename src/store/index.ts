@@ -10,7 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     outTagsData:
-      LabelModel.fetch("outTags").length === 0
+      LabelModel.fetch("outTags_vue").length === 0
         ? [
             { iconName: "catering", notes: "餐饮", id: 1 },
             { iconName: "shopping", notes: "购物", id: 2 },
@@ -20,16 +20,16 @@ export default new Vuex.Store({
             { iconName: "pet", notes: "宠物", id: 6 },
             { iconName: "recreation", notes: "娱乐", id: 7 },
           ]
-        : LabelModel.fetch("outTags"),
+        : LabelModel.fetch("outTags_vue"),
     inTagsData:
-      LabelModel.fetch("inTags").length === 0
+      LabelModel.fetch("inTags_vue").length === 0
         ? [
             { iconName: "parttime", notes: "兼职", id: 1 },
             { iconName: "wage", notes: "工资", id: 2 },
             { iconName: "licai", notes: "理财", id: 3 },
             { iconName: "otherrevenue", notes: "其他", id: 4 },
           ]
-        : LabelModel.fetch("inTags"),
+        : LabelModel.fetch("inTags_vue"),
     recordList: RecordModel.fetch(),
     iconNameList: [
       {
@@ -130,8 +130,8 @@ export default new Vuex.Store({
       state.recordList.push(recordClone);
     },
     SAVE_ALL(state) {
-      LabelModel.save("outTags", state.outTagsData);
-      LabelModel.save("inTags", state.inTagsData);
+      LabelModel.save("outTags_vue", state.outTagsData);
+      LabelModel.save("inTags_vue", state.inTagsData);
       RecordModel.save(state.recordList);
     },
   },

@@ -1,4 +1,4 @@
-const localStorageKey = "recordList";
+const localStorageKey = "recordList_vue";
 const recordModel = {
   fetch() {
     // 声明返回值为RecordItem
